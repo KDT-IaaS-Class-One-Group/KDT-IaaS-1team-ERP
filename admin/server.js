@@ -1,5 +1,5 @@
 const crypto = require('crypto');  // 암호화(cryptography)
-const secretKey = crypto.randomBytes(32).toString('hex'); 
+const secretKey = crypto.randomBytes(32).toString('hex');
 // crypto 모듈을 사용하여 32바이트의 무작위 바이트를 생성하고, 이를 16진수(hex) 문자열로 변환하여 secretKey에 저장하는 역할
 const jwt = require('jsonwebtoken');  //jsonwebtoken
 
@@ -19,9 +19,9 @@ const fs = require('fs')
 // MariaDB 연결 설정
 const connection = mysql.createConnection({
   host: "localhost",
-  user: "project ",  // 테이블 이름
-  password: "1108",
-  database: "erpproject",  // 데이터베이스 이름
+  user: "root",  // 테이블 이름
+  password: "1216",
+  database: "kimdb",  // 데이터베이스 이름
 });
 
 app.prepare().then(() => {
@@ -63,7 +63,7 @@ app.prepare().then(() => {
       if (results.length > 0) {
         const user = results[0];
         const tokenPayload = {
-          username : user.username
+          username: user.username
         }
         const token = jwt.sign(tokenPayload, secretKey, { expiresIn: '1h' });
         res.status(200).json({ message: "로그인 성공", token, user });
@@ -75,27 +75,27 @@ app.prepare().then(() => {
 
 
   server.get("/products", (req, res) => {
-    const query = "SELECT productKey, productName, price, stock, cateName FROM product"; 
+    const query = "SELECT productKey, productName, price, stock, cateName FROM product";
     connection.query(query, (err, results, fields) => {
       if (err) {
         console.error("Error fetching products:", err);
         res.status(500).json({ message: "상품을 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
 
   server.get("/order", (req, res) => {
-    const query = "SELECT username, customer, receiver, phoneNumber, address, price FROM orders"; 
+    const query = "SELECT username, customer, receiver, phoneNumber, address, price FROM orders";
     connection.query(query, (err, results, fields) => {
       if (err) {
         console.error("Error fetching order:", err);
         res.status(500).json({ message: "주문정보를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
@@ -109,11 +109,11 @@ app.prepare().then(() => {
         res.status(500).json({ message: "카테고리를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
-  
+
 
   server.get("/users", (req, res) => {
     const query = "SELECT name, username FROM users"; // 필요한 사용자 정보를 가져오는 쿼리
@@ -123,14 +123,14 @@ app.prepare().then(() => {
         res.status(500).json({ message: "사용자 정보를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
 
   server.post("/resign", (req, res) => {
     const { username } = req.body; // 로그인된 사용자의 username (또는 다른 식별자)
-  
+
     // 회원 탈퇴를 위한 쿼리 실행
     const deleteQuery = "DELETE FROM project WHERE username = ?";
     connection.query(deleteQuery, [username], (err, results, fields) => {
@@ -139,7 +139,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: "회원 탈퇴 중 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json({ message: "회원 탈퇴가 완료되었습니다." });
     });
   });
@@ -156,30 +156,30 @@ app.prepare().then(() => {
           res.status(500).json({ message: "이미지 저장 중에 오류가 발생했습니다." });
           return;
         }
-  
-  
-    // 상품을 DB에 삽입하는 쿼리
-    const query = "INSERT INTO product (cateName, productName, price, stock, img) VALUES (?, ?, ?, ?, ?)";
-    connection.query(query, [cateName, productName, price, stock, imgName], (err, results, fields) => {
-      if (err) {
-        console.error("Error adding product:", err);
-        res.status(500).json({ message: "상품 추가에 실패했습니다." });
-        return;
-      }
-      res.status(200).json({ message: "상품 추가가 완료되었습니다." });
-    });
-  })
-  } catch(error) {
-    console.error("Error processing image:", error);
-    res.status(500).json({ message: "이미지 처리 중에 오류가 발생했습니다." });
-  }
+
+
+        // 상품을 DB에 삽입하는 쿼리
+        const query = "INSERT INTO product (cateName, productName, price, stock, img) VALUES (?, ?, ?, ?, ?)";
+        connection.query(query, [cateName, productName, price, stock, imgName], (err, results, fields) => {
+          if (err) {
+            console.error("Error adding product:", err);
+            res.status(500).json({ message: "상품 추가에 실패했습니다." });
+            return;
+          }
+          res.status(200).json({ message: "상품 추가가 완료되었습니다." });
+        });
+      })
+    } catch (error) {
+      console.error("Error processing image:", error);
+      res.status(500).json({ message: "이미지 처리 중에 오류가 발생했습니다." });
+    }
   })
 
 
 
   server.delete("/deleteProduct/:productId", (req, res) => {
     const productId = req.params.productId;
-  
+
     const query = "DELETE FROM product WHERE productKey = ?";
     connection.query(query, [productId], (err, results, fields) => {
       if (err) {
@@ -187,7 +187,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: "상품 삭제 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json({ message: "상품이 성공적으로 삭제되었습니다." });
     });
   });
@@ -195,8 +195,8 @@ app.prepare().then(() => {
 
 
   // Next.js 서버에 라우팅 위임
-  server.all('*', (req,res) =>{
-    return handle(req,res)
+  server.all('*', (req, res) => {
+    return handle(req, res)
   });
 
   // 서버 시작
