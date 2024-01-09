@@ -9,7 +9,7 @@ export default function SignUp(){
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-
+  const [cash, setcash] = useState("");
   const handleJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {

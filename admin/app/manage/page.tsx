@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react';
 
 interface User {
+  num:number;
   name: string;
   username: string;
+  cash: number;
   // Add other user properties as needed
 }
 
 export default function ManagePage() {
   const [users, setUsers] = useState<User[]>([]);
-
   useEffect(() => {
     fetch('/users')
       .then((response) => {
@@ -36,6 +37,7 @@ export default function ManagePage() {
           <tr>
             <th>Name</th>
             <th>Username</th>
+            <th>cash</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +45,7 @@ export default function ManagePage() {
             <tr key={index}>
               <td>{user.name}</td>
               <td>{user.username}</td>
+              <td>{user.cash}</td>
             </tr>
           ))}
         </tbody>
