@@ -28,7 +28,7 @@ app.prepare().then(() => {
     const hashedPassword = password;
 
     // 회원가입 정보를 DB에 삽입
-    const query = "INSERT INTO users (name, username, password, admin) VALUES (?, ?, ?, 0)";
+    const query = "INSERT INTO users (name, username, password, admin) VALUES (?, ?, ?, ?)";
     connection.query(query, [name, username, hashedPassword], (err, results, fields) => {
       if (err) {
         console.error("Error signing up:", err);
