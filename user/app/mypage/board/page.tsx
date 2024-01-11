@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback, ChangeEvent } from "react";
 // BoardInfo 인터페이스를 정의합니다.
 interface BoardInfo {
   titleKey: string;
-  timestamp: string;
+  adddate: string;
   username: string;
   password: string;
   title: string;
@@ -16,7 +16,7 @@ interface BoardInfo {
 // 페이징을 위한 페이지 크기를 설정합니다.
 const pageSize = 10;
 
-// QA 컴포넌트를 생성합니다.
+// Page 컴포넌트를 생성합니다.
 export default function Page() {
   // 데이터 및 UI 상태를 관리하는 상태 변수들입니다.
   const [boards, setBoards] = useState<BoardInfo[]>([]);
@@ -28,7 +28,7 @@ export default function Page() {
   const [showForm, setShowForm] = useState(false);
   const [boardInfo, setBoardInfo] = useState<BoardInfo>({
     titleKey: "",
-    timestamp: "",
+    adddate: "",
     username: "",
     password: "",
     title: "",
@@ -37,6 +37,7 @@ export default function Page() {
   });
   const [selectedBoard, setSelectedBoard] = useState<BoardInfo | null>(null);
 
+
   // 서버에서 게시판 데이터를 가져오는 함수입니다.
   const fetchData = useCallback(async (page: number) => {
     try {
@@ -44,6 +45,8 @@ export default function Page() {
 
       const response = await fetch(apiUrl);
       const data = await response.json();
+
+
 
       setBoards(data.boards);
       setPageInfo({
@@ -80,6 +83,22 @@ export default function Page() {
   // 모달을 닫는 이벤트 핸들러입니다.
   const handleModalClose = () => {
     setShowForm(false);
+  };
+
+  // 현재 시간 
+  const formatDateTime = (date: string) => {
+    const dateObject = new Date(date);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'Asia/Seoul'
+    };
+    const dateTimeString = dateObject.toLocaleString('ko-KR', options);
+    return dateTimeString;
   };
 
   // 페이징 변경을 처리하는 이벤트 핸들러입니다.
@@ -199,7 +218,7 @@ export default function Page() {
           <thead>
             <tr>
               <th>titleKey</th>
-              <th>timestamp</th>
+              <th>adddate</th>
               <th>username</th>
               {/* <th>password</th> */}
               <th>title</th>
@@ -211,7 +230,7 @@ export default function Page() {
             {boards.map((board) => (
               <tr key={board.titleKey}>
                 <td>{board.titleKey}</td>
-                <td>{board.timestamp}</td>
+                <td>{formatDateTime(board.adddate)}</td>
                 <td>{board.username}</td>
                 {/* <td>{board.password}</td> */}
                 <td>{board.title}</td>
@@ -224,11 +243,12 @@ export default function Page() {
           </tbody>
         </table>
         {selectedBoard && (
+          
           <div>
             <div>
               <span onClick={handleModalClose}>&times;</span>
               <h2>titleKey : {selectedBoard.titleKey}</h2>
-              <div>timestamp : {selectedBoard.timestamp}</div>
+              <div>adddate : {selectedBoard.adddate}</div>
               <div>username : {selectedBoard.username}</div>
               <div>password : {selectedBoard.password}</div>
               <div>title : {selectedBoard.title}</div>
