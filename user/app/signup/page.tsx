@@ -1,25 +1,26 @@
-'use client'
+"use client";
 
-import React, {useState} from "react";
-import Link from 'next/link'
+import React, { useState } from "react";
+import Link from "next/link";
 import {
   validateName,
   validateUsername,
   validatePassword,
   validateEmail,
   validatePhoneNumber,
-} from '../ui/validation';
+} from "../ui/validation";
+import { isValid } from "js-base64";
 
-export default function SignUp(){
+export default function SignUp() {
   const initialFormData = {
-    username: '',
-    password: '',
-    name: '',
-    email: '',
-    address: '',
-    phoneNumber: '',
+    username: "",
+    password: "",
+    name: "",
+    email: "",
+    address: "",
+    phoneNumber: "",
   };
-  
+
   const initialValidation = {
     isValidName: true,
     isValidUsername: true,
@@ -29,26 +30,32 @@ export default function SignUp(){
   };
   const [formData, setFormData] = useState(initialFormData);
   const [validation, setValidation] = useState(initialValidation);
+  const [errorMessages, setErrorMessages] = useState({
+    name: "",
+    username: "",
+    password: "",
+    email: "",
+    phoneNumber: "",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     setFormData({
       ...formData,
       [name]: value,
     });
     setValidation({
       ...validation,
-      ['isValid' + name.charAt(0).toUpperCase() + name.slice(1)]: true,
+      ["isValid" + name.charAt(0).toUpperCase() + name.slice(1)]: true,
     });
   };
-
 
   const containsInvalidCharacters = (input: string): boolean => {
     // 유효하지 않은 문자를 포함하는지 검사하는 정규식
     return !/^[a-zA-Z0-9]+$/.test(input);
   };
-  
+
   const handleJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -66,92 +73,141 @@ export default function SignUp(){
       isValidEmail: isEmailValid,
       isValidPhoneNumber: isPhoneNumberValid,
     });
-  
-    if (!(isNameValid && isUsernameValid && isPasswordValid && isEmailValid && isPhoneNumberValid)) {
+    if (
+      !(
+        isNameValid &&
+        isUsernameValid &&
+        isPasswordValid &&
+        isEmailValid &&
+        isPhoneNumberValid
+      )
+    ) {
       return;
     }
-
     try {
       const response = await fetch("/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, username, password, email, address, phoneNumber }),
+        body: JSON.stringify({
+          name,
+          username,
+          password,
+          email,
+          address,
+          phoneNumber,
+        }),
       });
-  
       if (response.ok) {
-        alert('회원가입이 완료되었습니다')
-        window.location.href='/'
+        alert("회원가입이 완료되었습니다");
+        window.location.href = "/";
       } else {
-        alert('회원가입에 실패하였습니다.')
+        alert("회원가입에 실패하였습니다.");
       }
     } catch (error) {
-      console.error("Error:", error);
+      if (initialValidation.isValidName === false) {
+        console.error("Error:", error);
+      }
     }
   };
   return (
-    <div  className="flex flex-col justify-center items-center h-lvh">
+    <div className="flex flex-col justify-center items-center h-lvh">
       <h1 className="mb-20">회원가입 페이지</h1>
-      <form className = "h-32 flex flex-col items-end justify-around" onSubmit={handleJoin}>
-      <input
-        className={`border border-black mb-2 ${!validation.isValidName ? 'border-red-500' : ''}`}
-        type="text"
-        value={formData.name}
-        name="name"
-        placeholder="이름"
-        onChange={handleInputChange}
-        required 
-      />
-      <input
-        className={`border border-black mb-2 ${!validation.isValidUsername ? 'border-red-500' : ''}`}
-        type="text"
-        value={formData.username}
-        name="username"
-        placeholder="아이디"
-        onChange={handleInputChange}
-        required 
-      />
-      <input
-        className={`border border-black mb-2 ${!validation.isValidPassword ? 'border-red-500' : ''}`}
-        type="text"
-        value={formData.password}
-        name="password"
-        placeholder="비밀번호"
-        onChange={handleInputChange}
-        required 
-      />
-      <input
-        className={`border border-black mb-2 ${!validation.isValidEmail ? 'border-red-500' : ''}`}
-        type="text"
-        value={formData.email}
-        name="email"
-        placeholder="이메일"
-        onChange={handleInputChange}
-        required 
-      />
-      <input
-        className="border border-black mb-2"
-        type="text"
-        value={formData.address}
-        name="address"
-        placeholder="주소"
-        onChange={handleInputChange}
-        required 
-      />
-      <input
-        className={`border border-black mb-2 ${!validation.isValidPhoneNumber ? 'border-red-500' : ''}`}
-        type="text"
-        value={formData.phoneNumber}
-        name="phoneNumber"
-        placeholder="전화번호"
-        onChange={handleInputChange}
-        required 
-      />
-
+      <form
+        className="h-32 flex flex-col items-end justify-around"
+        onSubmit={handleJoin}
+      >
+        <input
+          className={`border border-black mb-2 ${
+            !validation.isValidName ? "border-red-500" : ""
+          }`}
+          type="text"
+          value={formData.name}
+          name="name"
+          placeholder="이름"
+          onChange={handleInputChange}
+        />
+        {!validation.isValidName && (
+          <p style={{ color: "red" }}>글자인지 확인하세요</p>
+        )}
+        <input
+          className={`border border-black mb-2 ${
+            !validation.isValidUsername ? "border-red-500" : ""
+          }`}
+          type="text"
+          value={formData.username}
+          name="username"
+          placeholder="아이디"
+          onChange={handleInputChange}
+          // required
+        />
+        {!validation.isValidUsername && (
+          <p style={{ color: "red" }}>
+            6~12글자,영문,숫자로 작성하세요(특수문자 제한)
+          </p>
+        )}
+        <input
+          className={`border border-black mb-2 ${
+            !validation.isValidPassword ? "border-red-500" : ""
+          }`}
+          type="text"
+          value={formData.password}
+          name="password"
+          placeholder="비밀번호"
+          onChange={handleInputChange}
+          // required
+        />
+        {!validation.isValidPassword && (
+          <p style={{ color: "red" }}>
+            8~20글자, 영문,숫자,특수문자로 작성하세요
+          </p>
+        )}
+        <input
+          className={`border border-black mb-2 ${
+            !validation.isValidEmail ? "border-red-500" : ""
+          }`}
+          type="text"
+          value={formData.email}
+          name="email"
+          placeholder="이메일"
+          onChange={handleInputChange}
+          // required
+        />
+        {!validation.isValidEmail && (
+          <p style={{ color: "red" }}>@를 확인해주세요</p>
+        )}
+        <input
+          className="border border-black mb-2"
+          type="text"
+          value={formData.address}
+          name="address"
+          placeholder="주소"
+          onChange={handleInputChange}
+          // required
+        />{" "}
+        {!validation.isValidUsername && (
+          <p style={{ color: "red" }}>시,구,군,동 으로 작성해주세요</p>
+        )}
+        <input
+          className={`border border-black mb-2 ${
+            !validation.isValidPhoneNumber ? "border-red-500" : ""
+          }`}
+          type="text"
+          value={formData.phoneNumber}
+          name="phoneNumber"
+          placeholder="전화번호"
+          onChange={handleInputChange}
+          // required
+        />{" "}
+        {!validation.isValidPhoneNumber && (
+          <p style={{ color: "red" }}>" - "를 사용하여 작성해주세요.</p>
+        )}
         <button type="submit">회원가입</button>
       </form>
-      <Link className="mt-20" href="/login">로그인페이지로</Link>
+      <Link className="mt-20" href="/login">
+        로그인페이지로
+      </Link>
     </div>
-  )
+  );
 }
