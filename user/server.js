@@ -486,18 +486,7 @@ app.prepare().then(() => {
     });
   });
 
-  // server.get("/mypage/board", (req, res) => {
-  //   const [titles, error] = connection.query("SELECT username, password, title, content FROM board");
-
-  //   if (error) {
-  //     console.error("Error fetching order:", error);
-  //     res.status(500).json({ message: "주문정보를 불러오는 중에 오류가 발생했습니다." });
-  //     return;
-  //   }
-
-  //   res.status(200).json(titles);
-  // });
-
+  
   server.get("/api/qna", async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1;
