@@ -1,11 +1,9 @@
-'use client'
+"use client";
 
-import React, {useState} from "react";
-import Link from 'next/link'
+import React, { useState } from "react";
+import Link from "next/link";
 
-
-export default function Login(){
-
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -20,13 +18,13 @@ export default function Login(){
         },
         body: JSON.stringify({ username, password }),
       });
-  
+
       if (response.ok) {
         const { token } = await response.json(); // 토큰 및 사용자 정보 받기
-        localStorage.setItem("token", JSON.stringify(token)); 
-  
+        localStorage.setItem("token", JSON.stringify(token));
+
         alert("로그인이 완료되었습니다.");
-        window.location.href = '/';
+        window.location.href = "/";
       } else {
         setMessage("로그인에 실패했습니다.");
       }
@@ -37,20 +35,38 @@ export default function Login(){
   };
 
   return (
-    <div  className="flex flex-col justify-center items-center h-lvh">
+    <div className="flex flex-col justify-center items-center h-lvh">
       <h1 className="mb-10">로그인페이지</h1>
-      <form  className = "h-32 flex flex-col items-end justify-around" onSubmit={handleLogin}>
-      <input className="border border-black" type="text" value={username} placeholder="아이디" onChange={(e)=>setUsername(e.target.value)}/>
-      <input className="border border-black" type="text" value={password} placeholder="비밀번호"  onChange={(e) => setPassword(e.target.value)} />
-      <div className="flex-row space-x-0">
-        <Link className="mt-10" href="/login/findUserInfo">id/pw찾기</Link>
-        <button className="border border-black" type="submit" >로그인</button>
-      </div>
+      <form
+        className="h-32 flex flex-col items-end justify-around"
+        onSubmit={handleLogin}
+      >
+        <input
+          className="border border-black"
+          type="text"
+          value={username}
+          placeholder="아이디"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          className="border border-black"
+          type="text"
+          value={password}
+          placeholder="비밀번호"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className="flex-row space-x-0">
+          <button className="border border-black" type="submit">
+            로그인
+          </button>
+        </div>
       </form>
       <Link href="/login/findUsername">ID찾기</Link>
       <Link href="/login/findPassword">PW찾기</Link>
       {message && <p>{message}</p>}
-      <Link className="mt-10" href="/">메인페이지로</Link>
+      <Link className="mt-10" href="/">
+        메인페이지로
+      </Link>
     </div>
-  )
+  );
 }
