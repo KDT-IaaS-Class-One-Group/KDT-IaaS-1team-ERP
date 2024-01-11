@@ -80,9 +80,11 @@ export default function Page() {
     setShowForm(true);
   };
 
+
   // 모달을 닫는 이벤트 핸들러입니다.
   const handleModalClose = () => {
     setShowForm(false);
+    setSelectedBoard(null);
   };
 
   // 현재 시간 
