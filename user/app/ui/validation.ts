@@ -1,5 +1,5 @@
 export const validateName = (name: string): boolean => {
-  const isValid: boolean = /^[a-zA-Z가-힣]*$/.test(name);
+  const isValid: boolean = /^[a-zA-Z]*([가-힣]{1,2}[a-zA-Z]*)*$/.test(name);
   return isValid;
 };
 
