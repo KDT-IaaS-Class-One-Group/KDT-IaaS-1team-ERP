@@ -18,7 +18,7 @@ export const validatePassword = (password: string): boolean => {
   return isValid;
 };
 
-export const validateaddress = (address: string): boolean => {
+export const validateAddress = (address: string): boolean => {
   const isValid: boolean = /^(?:[시도]+) (?:[구군]+) (?:[동읍면리]+)$/.test(
     address
   );

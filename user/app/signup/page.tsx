@@ -8,6 +8,7 @@ import {
   validatePassword,
   validateEmail,
   validatePhoneNumber,
+  validateAddress,
 } from "../ui/validation";
 import { isValid } from "js-base64";
 
@@ -25,6 +26,7 @@ export default function SignUp() {
     isValidName: true,
     isValidUsername: true,
     isValidPassword: true,
+    isValidAddress: true,
     isValidEmail: true,
     isValidPhoneNumber: true,
   };
@@ -35,6 +37,7 @@ export default function SignUp() {
     username: "",
     password: "",
     email: "",
+    address: "",
     phoneNumber: "",
   });
 
@@ -64,14 +67,15 @@ export default function SignUp() {
     const isUsernameValid = validateUsername(username);
     const isPasswordValid = validatePassword(password);
     const isEmailValid = validateEmail(email);
+    const isAddressValid = validateAddress(address);
     const isPhoneNumberValid = validatePhoneNumber(phoneNumber);
-
     setValidation({
       isValidName: isNameValid,
       isValidUsername: isUsernameValid,
       isValidPassword: isPasswordValid,
       isValidEmail: isEmailValid,
       isValidPhoneNumber: isPhoneNumberValid,
+      isValidAddress: isAddressValid,
     });
     if (
       !(
@@ -175,10 +179,12 @@ export default function SignUp() {
           // required
         />
         {!validation.isValidEmail && (
-          <p style={{ color: "red" }}>@를 확인해주세요</p>
+          <p style={{ color: "red" }}>이메일을 다시 확인 후 입력해주세요</p>
         )}
         <input
-          className="border border-black mb-2"
+          className={`border border-black mb-2 ${
+            !validation.isValidAddress ? "border-red-500" : ""
+          }`}
           type="text"
           value={formData.address}
           name="address"
@@ -186,8 +192,8 @@ export default function SignUp() {
           onChange={handleInputChange}
           // required
         />{" "}
-        {!validation.isValidUsername && (
-          <p style={{ color: "red" }}>시,구,군,동 으로 작성해주세요</p>
+        {!validation.isValidAddress && (
+          <p style={{ color: "red" }}>주소를 정확하게 작성해주세요</p>
         )}
         <input
           className={`border border-black mb-2 ${
