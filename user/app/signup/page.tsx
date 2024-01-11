@@ -131,6 +131,7 @@ export default function SignUp() {
           name="name"
           placeholder="이름"
           onChange={handleInputChange}
+          // required //! 활성화 시 사용자 오류 미출력
         />
         {!validation.isValidName && (
           <p style={{ color: "red" }}>글자인지 확인하세요</p>
@@ -144,7 +145,7 @@ export default function SignUp() {
           name="username"
           placeholder="아이디"
           onChange={handleInputChange}
-          // required
+          // required //! 활성화 시 사용자 오류 미출력
         />
         {!validation.isValidUsername && (
           <p style={{ color: "red" }}>
@@ -160,7 +161,7 @@ export default function SignUp() {
           name="password"
           placeholder="비밀번호"
           onChange={handleInputChange}
-          // required
+          // required //! 활성화 시 사용자 오류 미출력
         />
         {!validation.isValidPassword && (
           <p style={{ color: "red" }}>
@@ -176,7 +177,7 @@ export default function SignUp() {
           name="email"
           placeholder="이메일"
           onChange={handleInputChange}
-          // required
+          // required //! 활성화 시 사용자 오류 미출력
         />
         {!validation.isValidEmail && (
           <p style={{ color: "red" }}>이메일을 다시 확인 후 입력해주세요</p>
@@ -190,7 +191,7 @@ export default function SignUp() {
           name="address"
           placeholder="주소"
           onChange={handleInputChange}
-          // required
+          // required //! 활성화 시 사용자 오류 미출력
         />{" "}
         {!validation.isValidAddress && (
           <p style={{ color: "red" }}>주소를 정확하게 작성해주세요</p>
@@ -204,7 +205,7 @@ export default function SignUp() {
           name="phoneNumber"
           placeholder="전화번호"
           onChange={handleInputChange}
-          // required
+          // required //! 활성화 시 사용자 오류 미출력
         />{" "}
         {!validation.isValidPhoneNumber && (
           <p style={{ color: "red" }}>" - "를 사용하여 작성해주세요.</p>
