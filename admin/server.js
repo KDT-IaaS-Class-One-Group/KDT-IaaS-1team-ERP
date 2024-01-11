@@ -13,9 +13,8 @@ const handle = app.getRequestHandler();
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "0177",
+  password: "1216",
   database: "kimdb",
-  port: 3306,
 });
 
 app.prepare().then(() => {
@@ -59,7 +58,7 @@ app.prepare().then(() => {
       if (results.length > 0) {
         const user = results[0];
         const tokenPayload = {
-          username : user.username
+          username: user.username
         }
         const token = jwt.sign(tokenPayload, secretKey, { expiresIn: '1h' });
         res.status(200).json({ message: "로그인 성공", token, user });
@@ -71,27 +70,27 @@ app.prepare().then(() => {
 
 
   server.get("/products", (req, res) => {
-    const query = "SELECT productKey, productName, price, stock, cateName FROM product"; 
+    const query = "SELECT productKey, productName, price, stock, cateName FROM product";
     connection.query(query, (err, results, fields) => {
       if (err) {
         console.error("Error fetching products:", err);
         res.status(500).json({ message: "상품을 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
 
   server.get("/order", (req, res) => {
-    const query = "SELECT username, productName, customer, receiver, phoneNumber, address, price FROM orders"; 
+    const query = "SELECT username, productName, customer, receiver, phoneNumber, address, price FROM orders";
     connection.query(query, (err, results, fields) => {
       if (err) {
         console.error("Error fetching order:", err);
         res.status(500).json({ message: "주문정보를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
@@ -99,7 +98,7 @@ app.prepare().then(() => {
 
   server.put("/users/:username/toggle-activate", (req, res) => {
     const { username } = req.params;
-  
+
     // 현재 사용자의 activate 상태를 조회하는 쿼리
     const selectQuery = "SELECT activate FROM users WHERE username = ?";
     connection.query(selectQuery, [username], (err, results) => {
@@ -108,13 +107,13 @@ app.prepare().then(() => {
         res.status(500).json({ message: "사용자 정보를 가져오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       // 현재 사용자의 activate 상태를 확인합니다.
       const currentActivateStatus = results[0]?.activate;
-  
+
       // 사용자의 activate 상태를 토글하여 반대 값으로 설정합니다.
       const newActivateStatus = currentActivateStatus === 1 ? 0 : 1;
-  
+
       // 사용자의 activate 값을 업데이트하는 쿼리
       const updateQuery = "UPDATE users SET activate = ? WHERE username = ?";
       connection.query(updateQuery, [newActivateStatus, username], (err, results) => {
@@ -123,7 +122,7 @@ app.prepare().then(() => {
           res.status(500).json({ message: "사용자의 활성화 상태를 변경하는 중에 오류가 발생했습니다." });
           return;
         }
-  
+
         const message = newActivateStatus === 1 ? `${username} 사용자가 활성화되었습니다.` : `${username} 사용자가 비활성화되었습니다.`;
         res.status(200).json({ message });
       });
@@ -139,11 +138,11 @@ app.prepare().then(() => {
         res.status(500).json({ message: "카테고리를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
-  
+
 
   server.get("/users", (req, res) => {
     const query = "SELECT name, username, cash, addDate, activate FROM users"; // 필요한 사용자 정보를 가져오는 쿼리
@@ -153,16 +152,16 @@ app.prepare().then(() => {
         res.status(500).json({ message: "사용자 정보를 불러오는 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json(results); // 결과를 JSON 형태로 반환
     });
   });
 
 
-  
+
   server.post('/find-username', (req, res) => {
     const { name, email } = req.body;
-  
+
     // MySQL 쿼리 실행하여 username 찾기
     const query = `SELECT username FROM users WHERE name = ? AND email = ?`;
     connection.query(query, [name, email], (err, results) => {
@@ -171,7 +170,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: '서버 오류 발생' });
         return;
       }
-  
+
       if (results.length > 0) {
         const foundUsername = results[0].username;
         res.status(200).json({ username: foundUsername });
@@ -191,7 +190,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: '서버 오류 발생' });
         return;
       }
-  
+
       if (results.length > 0) {
         res.status(200).json({ username: results[0].username, message: '해당 사용자를 찾았습니다.' });
       } else {
@@ -199,7 +198,7 @@ app.prepare().then(() => {
       }
     });
   });
-  
+
   server.put('/update-password', (req, res) => {
     const { username, newPassword } = req.body;
     const query = 'UPDATE users SET password = ? WHERE username = ?';
@@ -209,7 +208,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: '서버 오류 발생' });
         return;
       }
-  
+
       if (results.affectedRows > 0) {
         res.status(200).json({ message: '비밀번호가 업데이트되었습니다.' });
       } else {
@@ -223,7 +222,7 @@ app.prepare().then(() => {
 
   server.post("/resign", (req, res) => {
     const { username } = req.body; // 로그인된 사용자의 username (또는 다른 식별자)
-  
+
     // 회원 탈퇴를 위한 쿼리 실행
     const deleteQuery = "DELETE FROM users WHERE username = ?";
     connection.query(deleteQuery, [username], (err, results, fields) => {
@@ -232,7 +231,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: "회원 탈퇴 중 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json({ message: "회원 탈퇴가 완료되었습니다." });
     });
   });
@@ -241,7 +240,7 @@ app.prepare().then(() => {
   server.post("/addProduct", (req, res) => {
     const { cateName, productName, price, stock } = req.body;
 
-  
+
     // 상품을 DB에 삽입하는 쿼리
     const query = "INSERT INTO product (cateName, productName, price, stock) VALUES (?, ?, ?, ?)";
     connection.query(query, [cateName, productName, price, stock], (err, results, fields) => {
@@ -253,14 +252,14 @@ app.prepare().then(() => {
       res.status(200).json({ message: "상품 추가가 완료되었습니다." });
     });
   })
-  
+
 
   server.post('/give-cash', (req, res) => {
     const { usernames, giveCash } = req.body;
-  
+
     // users 테이블에서 선택된 사용자들의 캐시를 업데이트하는 쿼리
     const updateQuery = `UPDATE users SET cash = cash + ? WHERE username IN (?)`;
-  
+
     // 데이터베이스에 쿼리를 실행합니다.
     connection.query(updateQuery, [giveCash, usernames], (err, results) => {
       if (err) {
@@ -268,7 +267,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: '캐시를 지급하는 동안 오류가 발생했습니다.' });
         return;
       }
-  
+
       // 업데이트된 사용자 목록을 다시 가져옵니다.
       const selectQuery = `SELECT * FROM users`;
       connection.query(selectQuery, [usernames], (err, updatedUsers) => {
@@ -277,7 +276,7 @@ app.prepare().then(() => {
           res.status(500).json({ message: '업데이트된 사용자를 불러오는 동안 오류가 발생했습니다.' });
           return;
         }
-  
+
         res.status(200).json({ updatedUsers });
       });
     });
@@ -288,7 +287,7 @@ app.prepare().then(() => {
 
   server.delete("/deleteProduct/:productId", (req, res) => {
     const productId = req.params.productId;
-  
+
     const query = "DELETE FROM product WHERE productKey = ?";
     connection.query(query, [productId], (err, results, fields) => {
       if (err) {
@@ -296,7 +295,7 @@ app.prepare().then(() => {
         res.status(500).json({ message: "상품 삭제 중에 오류가 발생했습니다." });
         return;
       }
-  
+
       res.status(200).json({ message: "상품이 성공적으로 삭제되었습니다." });
     });
   });
@@ -304,8 +303,8 @@ app.prepare().then(() => {
 
 
   // Next.js 서버에 라우팅 위임
-  server.all('*', (req,res) =>{
-    return handle(req,res)
+  server.all('*', (req, res) => {
+    return handle(req, res)
   });
 
   // 서버 시작
