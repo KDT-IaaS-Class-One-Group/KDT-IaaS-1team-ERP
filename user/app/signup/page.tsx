@@ -134,7 +134,7 @@ export default function SignUp() {
           // required //! 활성화 시 사용자 오류 미출력
         />
         {!validation.isValidName && (
-          <p style={{ color: "red", fontSize: 10 }}>글자인지 확인하세요</p>
+          <p style={{ color: "red", fontSize: 10 }}>이름을 확인하세요</p>
         )}
         <input
           className={`border border-black mb-2 ${
