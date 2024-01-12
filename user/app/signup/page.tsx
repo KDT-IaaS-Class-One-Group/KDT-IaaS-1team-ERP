@@ -108,7 +108,7 @@ export default function SignUp() {
     <div className="flex flex-col justify-center items-center h-screen">
       <h1 className="mb-10 text-3xl font-bold">회원가입 페이지</h1>
       <form className="w-full max-w-md" onSubmit={handleJoin}>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidName ? "border-red-500" : "border-black"
@@ -124,7 +124,7 @@ export default function SignUp() {
             <p className="text-red-500 text-xs">이름을 확인하세요</p>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidUsername ? "border-red-500" : "border-black"
@@ -148,7 +148,7 @@ export default function SignUp() {
             </p>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidPassword ? "border-red-500" : "border-black"
@@ -166,7 +166,7 @@ export default function SignUp() {
             </p>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidEmail ? "border-red-500" : "border-black"
@@ -184,7 +184,7 @@ export default function SignUp() {
             </p>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidAddress ? "border-red-500" : "border-black"
@@ -200,7 +200,7 @@ export default function SignUp() {
             <p className="text-red-500 text-xs">주소를 정확하게 작성해주세요</p>
           )}
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex items-center">
           <input
             className={`w-full border p-2 ${
               !validation.isValidPhoneNumber ? "border-red-500" : "border-black"
