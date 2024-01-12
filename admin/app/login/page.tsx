@@ -67,7 +67,7 @@ export default function Login() {
           </button>
         </div>
       </form>
-      <div className="flex justify-between w-full mt-4">
+      <div className="flex justify-between w-full max-w-md mt-4">
         <Link href="/login/findUsername">아이디 찾기</Link>
         <Link href="/login/findPassword">비밀번호 찾기</Link>
       </div>
