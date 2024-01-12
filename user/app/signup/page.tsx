@@ -110,118 +110,134 @@ export default function SignUp() {
       <form className="w-full max-w-md" onSubmit={handleJoin}>
         <div className="mb-4 flex flex-col">
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidName ? "border-red-500" : "border-black"
-              }`}
-              type="text"
-              value={formData.name}
-              name="name"
-              placeholder="이름"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidName && (
-              <p className="text-red-500 text-xs mt-1">이름을 확인하세요</p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidName ? "border-red-500" : "border-black"
+                }`}
+                type="text"
+                value={formData.name}
+                name="name"
+                placeholder="이름"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {validation.isValidName ? null : (
+                <p className="text-red-500 text-xs mt-1">이름을 확인하세요</p>
+              )}
+            </div>
           </div>
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidUsername ? "border-red-500" : "border-black"
-              }`}
-              type="text"
-              value={formData.username}
-              name="username"
-              placeholder="아이디"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidUsername && (
-              <p className="text-red-500 text-xs mt-1">
-                6~12글자, 영문, 숫자로 작성하세요 (특수문자 제한)
-              </p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidUsername
+                    ? "border-red-500"
+                    : "border-black"
+                }`}
+                type="text"
+                value={formData.username}
+                name="username"
+                placeholder="아이디"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {!validation.isValidUsername && (
+                <p className="text-red-500 text-xs mt-1">
+                  6~12글자, 영문, 숫자로 작성하세요 (특수문자 제한)
+                </p>
+              )}
+            </div>
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded ml-2"
             >
-              중복조회
+              아이디조회
             </button>
           </div>
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidPassword ? "border-red-500" : "border-black"
-              }`}
-              type="text"
-              value={formData.password}
-              name="password"
-              placeholder="비밀번호"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidPassword && (
-              <p className="text-red-500 text-xs mt-1">
-                8~20글자, 영문, 숫자, 특수문자로 작성하세요
-              </p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidPassword
+                    ? "border-red-500"
+                    : "border-black"
+                }`}
+                type="text"
+                value={formData.password}
+                name="password"
+                placeholder="비밀번호"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {validation.isValidPassword ? null : (
+                <p className="text-red-500 text-xs mt-1">
+                  8~20글자, 영문, 숫자, 특수문자로 작성하세요
+                </p>
+              )}
+            </div>
           </div>
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidEmail ? "border-red-500" : "border-black"
-              }`}
-              type="text"
-              value={formData.email}
-              name="email"
-              placeholder="이메일"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidEmail && (
-              <p className="text-red-500 text-xs mt-1">
-                이메일을 다시 확인 후 입력해주세요
-              </p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidEmail ? "border-red-500" : "border-black"
+                }`}
+                type="text"
+                value={formData.email}
+                name="email"
+                placeholder="이메일"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {validation.isValidEmail ? null : (
+                <p className="text-red-500 text-xs mt-1">
+                  이메일을 다시 확인 후 입력해주세요
+                </p>
+              )}
+            </div>
           </div>
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidAddress ? "border-red-500" : "border-black"
-              }`}
-              type="text"
-              value={formData.address}
-              name="address"
-              placeholder="주소"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidAddress && (
-              <p className="text-red-500 text-xs mt-1">
-                주소를 정확하게 작성해주세요
-              </p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidAddress ? "border-red-500" : "border-black"
+                }`}
+                type="text"
+                value={formData.address}
+                name="address"
+                placeholder="주소"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {validation.isValidAddress ? null : (
+                <p className="text-red-500 text-xs mt-1">
+                  주소를 정확하게 작성해주세요
+                </p>
+              )}
+            </div>
           </div>
           <div className="relative mb-4 flex items-center">
-            <input
-              className={`w-full border p-2 ${
-                !validation.isValidPhoneNumber
-                  ? "border-red-500"
-                  : "border-black"
-              }`}
-              type="text"
-              value={formData.phoneNumber}
-              name="phoneNumber"
-              placeholder="전화번호"
-              onChange={handleInputChange}
-              // required //! 활성화 시 사용자 오류 미출력
-            />
-            {!validation.isValidPhoneNumber && (
-              <p className="text-red-500 text-xs mt-1">
-                " - "를 사용하여 작성해주세요.
-              </p>
-            )}
+            <div className="w-full">
+              <input
+                className={`w-full border p-2 ${
+                  !validation.isValidPhoneNumber
+                    ? "border-red-500"
+                    : "border-black"
+                }`}
+                type="text"
+                value={formData.phoneNumber}
+                name="phoneNumber"
+                placeholder="전화번호"
+                onChange={handleInputChange}
+                // required //! 활성화 시 사용자 오류 미출력
+              />
+              {validation.isValidPhoneNumber ? null : (
+                <p className="text-red-500 text-xs mt-1">
+                  " - "를 사용하여 작성해주세요.
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <button
