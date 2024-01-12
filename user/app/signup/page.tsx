@@ -128,7 +128,7 @@ export default function SignUp() {
             </div>
           </div>
           <div className="relative mb-4 flex items-center">
-            <div className="w-full">
+            <div className="w-full flex">
               <input
                 className={`w-full border p-2 ${
                   !validation.isValidUsername
@@ -142,18 +142,18 @@ export default function SignUp() {
                 onChange={handleInputChange}
                 // required //! 활성화 시 사용자 오류 미출력
               />
-              {!validation.isValidUsername && (
-                <p className="text-red-500 text-xs mt-1">
-                  6~12글자, 영문, 숫자로 작성하세요 (특수문자 제한)
-                </p>
-              )}
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded ml-2 h-full"
+              >
+                아이디조회
+              </button>
             </div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded ml-2"
-            >
-              아이디조회
-            </button>
+            {!validation.isValidUsername && (
+              <p className="text-red-500 text-xs mt-1">
+                6~12글자, 영문, 숫자로 작성하세요 (특수문자 제한)
+              </p>
+            )}
           </div>
           <div className="relative mb-4 flex items-center">
             <div className="w-full">
@@ -242,7 +242,7 @@ export default function SignUp() {
         </div>
         <button
           type="submit"
-          className="bg-green-500 text-white py-2 px-4 rounded mt-4"
+          className="bg-green-500 text-white py-2 px-4 rounded mt-4 w-full"
         >
           가입하기
         </button>
