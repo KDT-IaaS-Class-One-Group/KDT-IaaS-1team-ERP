@@ -70,6 +70,7 @@ export default function Login() {
       <div className="flex w-full max-w-md justify-between">
         <div>
           <Link href="/login/findUsername">아이디 찾기</Link>
+          <span style={{ margin: "0 10px" }} />
           <Link href="/login/findPassword">비밀번호 찾기</Link>
         </div>
         <Link className="ml-auto" href="/">
