@@ -150,7 +150,7 @@ export default function SignUp() {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded ml-2"
+              className="bg-blue-500 text-white py-0 px-4 rounded ml-2"
             >
               아이디조회
             </button>
