@@ -67,14 +67,16 @@ export default function Login() {
           </button>
         </div>
       </form>
-      <div className="flex justify-between w-full max-w-md mt-4">
-        <Link href="/login/findUsername">아이디 찾기</Link>
-        <Link href="/login/findPassword">비밀번호 찾기</Link>
+      <div className="flex w-full max-w-md justify-between">
+        <div>
+          <Link href="/login/findUsername">아이디 찾기</Link>
+          <Link href="/login/findPassword">비밀번호 찾기</Link>
+        </div>
+        <Link className="ml-auto" href="/">
+          메인페이지로
+        </Link>
       </div>
       {message && <p className="mt-4">{message}</p>}
-      <Link className="mt-10" href="/">
-        메인페이지로
-      </Link>
     </div>
   );
 }
