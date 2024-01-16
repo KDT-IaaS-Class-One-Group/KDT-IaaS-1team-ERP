@@ -30,9 +30,33 @@ export default function MyPage() {
 
       {/* 오른쪽 영역 */}
       <div className="flex-1 bg-yellow-300 text-brown-800 p-8">
-        {/* 두 컴포넌트 추가 */}
-
         <OrderInfoButton />
+        {/* 두 컴포넌트 추가 */}
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="border border-black p-2">찜 수량</th>
+              <th className="border border-black p-2">주문 수량</th>
+              <th className="border border-black p-2">배송 수량</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {/* 찜 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-xl font-bold">0</h2>
+              </td>
+              {/* 주문 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-xl font-bold">0</h2>
+              </td>
+              {/* 배송 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-xl font-bold">0</h2>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
