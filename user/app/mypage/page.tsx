@@ -57,6 +57,18 @@ export default function MyPage() {
             </tr>
           </tbody>
         </table>
+
+        {/* 구매내역 div */}
+        <div className="mt-8 p-4 border border-black">
+          <h2 className="text-2xl font-bold mb-4">구매내역</h2>
+          {/* 여기에 구매내역 컴포넌트나 내용을 추가하세요 */}
+        </div>
+
+        {/* 장바구니 div */}
+        <div className="mt-8 p-4 border border-black">
+          <h2 className="text-2xl font-bold mb-4">장바구니</h2>
+          {/* 여기에 장바구니 컴포넌트나 내용을 추가하세요 */}
+        </div>
       </div>
     </div>
   );
