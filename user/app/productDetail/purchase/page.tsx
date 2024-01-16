@@ -93,51 +93,58 @@ export default function Purchase() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-lvw h-lvh">
-      <h1 className="text-4xl font-bold">ORDER</h1>
-      <p className="text-lg">배송정보</p>
-      <form onSubmit={handleSubmit} className="mt-4">
-        <li className="flex flex-col w-80 mb-4">
-          <label htmlFor="customer">주문고객</label>
+    <div className="flex flex-col justify-center items-center w-96 mx-auto mt-10 p-8 bg-gray-100 rounded-md">
+      <h1 className="text-3xl font-bold mb-4">주문하기</h1>
+      <p className="text-lg mb-2">배송정보</p>
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="mb-4">
+          <label htmlFor="customer" className="text-sm">
+            주문고객
+          </label>
           <input
-            className="border border-black px-3 py-2 text-base"
+            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
             type="text"
             name="customer"
             id="customer"
             required
           />
-        </li>
-        <li className="flex flex-col w-80 mb-4">
-          <label htmlFor="receiver">받는 분</label>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="receiver" className="text-sm">
+            받는 분
+          </label>
           <input
-            className="border border-black px-3 py-2 text-base"
+            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
             type="text"
             name="receiver"
             id="receiver"
             required
           />
-        </li>
-        <li className="flex flex-col w-80 mb-4">
-          <label htmlFor="phone">휴대폰번호</label>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="phone" className="text-sm">
+            휴대폰번호
+          </label>
           <input
-            className="border border-black px-3 py-2 text-base"
+            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
             type="text"
             name="phoneNumber"
             id="phone"
             required
           />
-        </li>
-        <li className="flex flex-col w-80 mb-4">
-          <label htmlFor="address">배송주소</label>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="address" className="text-sm">
+            배송주소
+          </label>
           <input
-            className="border border-black px-3 py-2 text-base"
+            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
             type="text"
             name="address"
             id="address"
             required
           />
-        </li>
-        <br />
+        </div>
         <input type="hidden" name="price" value={totalPrice} />
         <input type="hidden" name="username" value={username} />
         <input type="hidden" name="productName" value={ProductNames} />
@@ -146,16 +153,19 @@ export default function Purchase() {
           name="productKey"
           value={productsInfo.map((product) => product.productKey).join(",")}
         />
-        <p>선택한 상품 목록:</p>
-        <ul>
+        <p className="text-sm mb-2">선택한 상품 목록:</p>
+        <ul className="list-disc pl-6 mb-2">
           {productsInfo.map((product, index) => (
             <li key={index}>
               {product.name}: {product.price}원
             </li>
           ))}
         </ul>
-        <p>총 가격: {totalPrice}원</p>
-        <button className="bg-gray-300 w-20 h-10 mt-4" type="submit">
+        <p className="text-xl mb-4">총 가격: {totalPrice}원</p>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          type="submit"
+        >
           결제하기
         </button>
       </form>
