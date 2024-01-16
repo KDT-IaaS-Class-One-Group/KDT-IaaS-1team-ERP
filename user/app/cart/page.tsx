@@ -126,10 +126,10 @@ export default function CartPage() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <div className="w-70vw mx-auto h-full flex flex-col items-center">
       {/* 장바구니 카테고리 */}
-      <div className="flex justify-between items-center w-full p-4">
-        <h1 className="text-2xl font-bold">장바구니</h1>
+      <div className="flex justify-around items-center w-full p-4">
+        <h1 className="text-4xl font-bold">장바구니</h1>
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md"
           onClick={handleDelete}
@@ -141,7 +141,7 @@ export default function CartPage() {
       {/* 장바구니 아이템 목록 */}
       <ul className="w-full">
         {cartItems.map((item, index) => (
-          <li className="flex items-center mb-4 border p-4" key={index}>
+          <li className="flex justify-around mb-4 border p-4" key={index}>
             {/* 체크박스와 이미지 */}
             <div className="flex items-center">
               <input
@@ -158,12 +158,12 @@ export default function CartPage() {
             </div>
 
             {/* 상품 정보 */}
-            <div className="ml-4 flex-grow">
+            <div className="ml-4 flex items-center">
               <div className="flex flex-col text-right">
-                <p className="font-bold">{item.productName}</p>
-                <p>{item.adddate}</p>
-                <p>{item.price}</p>
-                <p>{item.quantity} 개</p>
+                <p className="font-bold w-60%">{item.productName}</p>
+                <p className="w-60%">{item.adddate}</p>
+                <p className="w-60%">{item.price}</p>
+                <p className="w-60%">{item.quantity} 개</p>
               </div>
             </div>
           </li>
@@ -173,7 +173,7 @@ export default function CartPage() {
       {/* 상품 구매 버튼 */}
       <button
         onClick={handlePurchase}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md self-end mt-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded-md"
       >
         선택 상품 구매
       </button>
