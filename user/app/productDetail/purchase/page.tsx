@@ -154,23 +154,25 @@ export default function Purchase() {
             name="productKey"
             value={productsInfo.map((product) => product.productKey).join(",")}
           />
-          <p className="text-sm mb-2">선택한 상품 목록:</p>
+          <p className="text-base font-bold mb-2">선택한 상품 목록 :</p>
           <div className="list-disc pl-6 mb-2">
             {productsInfo.map((product, index) => (
-              <div key={index} className="flex justify-around">
+              <div key={index} className="flex justify-between">
                 <span>{product.name}</span>
                 <span>{product.price}원</span>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-xl mb-2">총 가격: {totalPrice}원</p>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          type="submit"
-        >
-          결제하기
-        </button>
+        <div className="flex justify-between items-center">
+          <p className="text-xl mb-2">총 가격 : {totalPrice}원</p>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            type="submit"
+          >
+            결제하기
+          </button>
+        </div>
       </form>
     </div>
   );
