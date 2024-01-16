@@ -127,20 +127,21 @@ export default function CartPage() {
 
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <h1 className="text-2xl font-bold">장바구니</h1>
-
       {/* 장바구니 카테고리 */}
       <div className="flex justify-between items-center w-full p-4">
         <h1 className="text-2xl font-bold">장바구니</h1>
-        <button className="bg-red-500 text-white px-4 py-2 rounded-md">
-          삭제
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded-md"
+          onClick={handleDelete}
+        >
+          선택 상품 삭제
         </button>
       </div>
 
       {/* 장바구니 아이템 목록 */}
       <ul className="w-full">
         {cartItems.map((item, index) => (
-          <li className="flex items-center mb-4" key={index}>
+          <li className="flex items-center mb-4 border p-4" key={index}>
             {/* 체크박스와 이미지 */}
             <div className="flex items-center">
               <input
@@ -172,17 +173,9 @@ export default function CartPage() {
       {/* 상품 구매 버튼 */}
       <button
         onClick={handlePurchase}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded-md self-end mt-4"
       >
         선택 상품 구매
-      </button>
-
-      {/* 장바구니 삭제 버튼 */}
-      <button
-        onClick={handleDelete}
-        className="bg-red-500 text-white px-4 py-2 rounded-md mt-2"
-      >
-        장바구니 삭제
       </button>
     </div>
   );
