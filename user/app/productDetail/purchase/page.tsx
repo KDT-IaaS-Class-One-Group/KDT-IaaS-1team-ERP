@@ -145,23 +145,26 @@ export default function Purchase() {
             required
           />
         </div>
-        <input type="hidden" name="price" value={totalPrice} />
-        <input type="hidden" name="username" value={username} />
-        <input type="hidden" name="productName" value={ProductNames} />
-        <input
-          type="hidden"
-          name="productKey"
-          value={productsInfo.map((product) => product.productKey).join(",")}
-        />
-        <p className="text-sm mb-2">선택한 상품 목록:</p>
-        <ul className="list-disc pl-6 mb-2">
-          {productsInfo.map((product, index) => (
-            <li key={index}>
-              {product.name}: {product.price}원
-            </li>
-          ))}
-        </ul>
-        <p className="text-xl mb-4">총 가격: {totalPrice}원</p>
+        <div className="mb-4 bg-white p-4 rounded-md">
+          <input type="hidden" name="price" value={totalPrice} />
+          <input type="hidden" name="username" value={username} />
+          <input type="hidden" name="productName" value={ProductNames} />
+          <input
+            type="hidden"
+            name="productKey"
+            value={productsInfo.map((product) => product.productKey).join(",")}
+          />
+          <p className="text-sm mb-2">선택한 상품 목록:</p>
+          <div className="list-disc pl-6 mb-2">
+            {productsInfo.map((product, index) => (
+              <div key={index} className="flex justify-around">
+                <span>{product.name}</span>
+                <span>{product.price}원</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-xl mb-2">총 가격: {totalPrice}원</p>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded-md"
           type="submit"
