@@ -128,7 +128,7 @@ export default function CartPage() {
   return (
     <div className="w-70vw mx-auto h-full flex flex-col items-center">
       {/* 장바구니 카테고리 */}
-      <div className="flex justify-between items-center w-full p-4">
+      <div className="flex justify-around items-center w-full p-4">
         <h1 className="text-4xl font-bold">장바구니</h1>
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-md"
@@ -162,7 +162,7 @@ export default function CartPage() {
               <div className="flex flex-col text-right">
                 <p className="font-bold w-60%">{item.productName}</p>
                 <p className="w-60%">{item.adddate}</p>
-                <p className="w-60%">{item.price}</p>
+                <p className="w-60%">{item.price} 원</p>
                 <p className="w-60%">{item.quantity} 개</p>
               </div>
             </div>
