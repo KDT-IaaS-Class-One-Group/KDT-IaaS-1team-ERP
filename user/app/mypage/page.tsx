@@ -35,25 +35,25 @@ export default function MyPage() {
         <table className="w-full">
           <thead>
             <tr>
-              <th className="border border-black p-2">찜 수량</th>
-              <th className="border border-black p-2">주문 수량</th>
-              <th className="border border-black p-2">배송 수량</th>
+              {/* 찜 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-4xl font-bold">0</h2>
+              </td>
+              {/* 주문 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-4xl font-bold">0</h2>
+              </td>
+              {/* 배송 수량 */}
+              <td className="border border-black p-2 text-center">
+                <h2 className="text-4xl font-bold">0</h2>
+              </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              {/* 찜 수량 */}
-              <td className="border border-black p-2 text-center">
-                <h2 className="text-xl font-bold">0</h2>
-              </td>
-              {/* 주문 수량 */}
-              <td className="border border-black p-2 text-center">
-                <h2 className="text-xl font-bold">0</h2>
-              </td>
-              {/* 배송 수량 */}
-              <td className="border border-black p-2 text-center">
-                <h2 className="text-xl font-bold">0</h2>
-              </td>
+              <th className="border border-black p-2">찜 수량</th>
+              <th className="border border-black p-2">주문 수량</th>
+              <th className="border border-black p-2">배송 수량</th>
             </tr>
           </tbody>
         </table>
