@@ -170,10 +170,15 @@ export default function CartPage() {
         ))}
       </ul>
 
+      {/* 총 결제금액 */}
+      <div className="w-60% text-right mt-4">
+        <p className="font-bold">총 결제금액: XXXX 원</p>
+      </div>
+
       {/* 상품 구매 버튼 */}
       <button
         onClick={handlePurchase}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
       >
         선택 상품 구매
       </button>
