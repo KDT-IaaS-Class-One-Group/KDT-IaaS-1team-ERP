@@ -175,119 +175,134 @@ export default function Purchase() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-96 mx-auto mt-10 p-8 bg-gray-100 rounded-md">
+    <div className="flex flex-col justify-center items-center w-2/3 mx-auto mt-10 p-8 bg-gray-100 rounded-md">
       <h1 className="text-3xl font-bold mb-4">주문하기</h1>
       <p className="text-lg mb-2">배송정보</p>
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="mb-4">
-          <label htmlFor="customer" className="text-sm">
-            주문고객
-          </label>
-          <input
-            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
-            type="text"
-            name="customer"
-            id="customer"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="receiver" className="text-sm">
-            받는 분
-          </label>
-          <input
-            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
-            type="text"
-            name="receiver"
-            id="receiver"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="phone" className="text-sm">
-            휴대폰번호
-          </label>
-          <input
-            className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
-            type="text"
-            name="phoneNumber"
-            id="phone"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="address" className="text-sm">
-            배송주소
-          </label>
-          <div className="flex items-center">
-            <input
-              className="w-full border border-gray-300 px-3 py-2 text-base rounded-md"
-              type="text"
-              name="address"
-              id="address"
-              value={selectedAddress.address}
-              required
-              readOnly
-            />
-            <div className="ml-2"></div>
+        <div className="flex justify-between">
+          <div className="w-1/2 pr-4">
+            <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
+              <ul>
+                {productsInfo.map((product, index) => (
+                  <div key={index} className="flex items-center">
+                    <div>
+                      <img
+                        src={`/${product.name}.png`}
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                    <div className="ml-2">
+                      <p>{product.name}</p>
+                      <p>수량: {product.quantity}</p>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDecrement(index);
+                        }}
+                        disabled={product.quantity <= 1}
+                        className="mr-2"
+                      >
+                        -
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleIncrement(index);
+                        }}
+                      >
+                        +
+                      </button>
+                      <p>금액: {product.price * product.quantity}원</p>
+                      <div className="flex items-center"></div>
+                    </div>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="w-1/2">
+            <div className="mb-4">
+              <label htmlFor="customer" className="text-sm">
+                주문고객
+              </label>
+              <input
+                className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
+                type="text"
+                name="customer"
+                id="customer"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="receiver" className="text-sm">
+                받는 분
+              </label>
+              <input
+                className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
+                type="text"
+                name="receiver"
+                id="receiver"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="phone" className="text-sm">
+                휴대폰번호
+              </label>
+              <input
+                className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
+                type="text"
+                name="phoneNumber"
+                id="phone"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="address" className="text-sm">
+                배송주소
+              </label>
+              <div className="flex items-center w-full">
+                <input
+                  className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={selectedAddress.address}
+                  required
+                  readOnly
+                />
+              </div>
+              <Addr onAddressSelect={handleAddressSelect} />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="addressDetail" className="text-sm">
+                상세주소
+              </label>
+              <input
+                className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
+                type="text"
+                name="addressDetail"
+                id="addressDetail"
+                onChange={handleDetailedAddressChange}
+                required
+              />
+            </div>
           </div>
         </div>
-        <div className="mb-4 flex flex-col w-80 mt-1">
-          <label htmlFor="addressDetail" className="text-sm">
-            상세주소
-          </label>
-          <input
-            className="border border-gray-300 px-3 py-2 text-base rounded-md"
-            type="text"
-            name="addressDetail"
-            id="addressDetail"
-            onChange={handleDetailedAddressChange}
-            required
-          />
-        </div>
-        <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
-          <ul>
-            {productsInfo.map((product, index) => (
-              <div key={index} className="flex items-center">
-                <div>
-                  <img src={`/${product.name}.png`} width={100} height={100} />
-                </div>
-                <div className="ml-2">
-                  <p>{product.name}</p>
-                  <p>수량: {product.quantity}</p>
-                  <p>금액: {product.price * product.quantity}원</p>
-                </div>
-                <div className="ml-auto">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleDecrement(index);
-                    }}
-                    disabled={product.quantity <= 1}
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleIncrement(index);
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            ))}
-          </ul>
-        </div>
-        <div className="flex justify-between items-center">
-          <p className="text-xl mb-2">총 가격 : {totalPrice}원</p>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            type="submit"
-          >
-            결제하기
-          </button>
+        <div className="flex justify-center mt-4">
+          <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
+            <div className="flex justify-between items-center mb-4">
+              <p className="text-xl mb-2">총 가격 : {totalPrice}원</p>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                type="submit"
+              >
+                결제하기
+              </button>
+            </div>
+            {/* 추가적인 내용이 있다면 이곳에 배치 */}
+          </div>
         </div>
       </form>
     </div>
