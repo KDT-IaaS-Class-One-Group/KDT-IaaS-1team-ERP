@@ -245,36 +245,38 @@ export default function Purchase() {
             required
           />
         </div>
-        <div className="flex justify-end">
-          <Addr onAddressSelect={handleAddressSelect} />
-        </div>
-        <br />
-        <p>선택한 상품 목록:</p>
         <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
           <ul>
             {productsInfo.map((product, index) => (
-              <li key={index}>
-                <img src={`/${product.name}.png`} width={100} height={100} />
-                {product.name}: {product.price * product.quantity}원 수량 :{" "}
-                {product.quantity}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleDecrement(index);
-                  }}
-                  disabled={product.quantity <= 1}
-                >
-                  -
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleIncrement(index);
-                  }}
-                >
-                  +
-                </button>
-              </li>
+              <div key={index} className="flex items-center">
+                <div>
+                  <img src={`/${product.name}.png`} width={100} height={100} />
+                </div>
+                <div className="ml-2">
+                  <p>{product.name}</p>
+                  <p>수량: {product.quantity}</p>
+                  <p>금액: {product.price * product.quantity}원</p>
+                </div>
+                <div className="ml-auto">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDecrement(index);
+                    }}
+                    disabled={product.quantity <= 1}
+                  >
+                    -
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleIncrement(index);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             ))}
           </ul>
         </div>
