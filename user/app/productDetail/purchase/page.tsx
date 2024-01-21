@@ -193,26 +193,30 @@ export default function Purchase() {
                       />
                     </div>
                     <div className="ml-2">
-                      <p>{product.name}</p>
-                      <p>수량: {product.quantity}</p>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleDecrement(index);
-                        }}
-                        disabled={product.quantity <= 1}
-                        className="mr-2"
-                      >
-                        -
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleIncrement(index);
-                        }}
-                      >
-                        +
-                      </button>
+                      <p>상품명: {product.name}</p>
+                      <div className="flex">
+                        <p>수량: {product.quantity}</p>
+                        <div className="flex bg-gray-200 text-white px-10 rounded-md">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleIncrement(index);
+                            }}
+                          >
+                            +
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleDecrement(index);
+                            }}
+                            disabled={product.quantity <= 1}
+                            className="mr-2"
+                          >
+                            -
+                          </button>
+                        </div>
+                      </div>
                       <p>금액: {product.price * product.quantity}원</p>
                       <div className="flex items-center"></div>
                     </div>
@@ -290,10 +294,10 @@ export default function Purchase() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-4">
-          <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
-            <div className="flex justify-between items-center mb-4">
-              <p className="text-xl mb-2">총 가격 : {totalPrice}원</p>
+        <div className="flex justify-end mt-4">
+          <div className="w-1/2 border border-gray-300 px-3 py-2 text-base rounded-md">
+            <div className="flex justify-end items-center mb-4">
+              <p className="text-xl mb-2 mr-auto">총 가격 : {totalPrice}원</p>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
                 type="submit"
@@ -301,7 +305,6 @@ export default function Purchase() {
                 결제하기
               </button>
             </div>
-            {/* 추가적인 내용이 있다면 이곳에 배치 */}
           </div>
         </div>
       </form>
