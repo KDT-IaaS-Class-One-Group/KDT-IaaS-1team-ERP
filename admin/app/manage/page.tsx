@@ -1,4 +1,3 @@
-// user 관리 페이지
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
