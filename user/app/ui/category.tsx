@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'
+import Slide from './slide';
+
   interface Product {
     productName: string;
     productKey : number;
@@ -10,11 +11,18 @@ import Image from 'next/image'
   }
 
   export default function Category() {
-    const router = useRouter()
+    const router = useRouter();
     const [category, setCategory] = useState<string[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
-    const pageSize = 6;
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedStandard, setSelectedStandard] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showStandards, setShowStandards] = useState(false);  
+    const [categoryStates, setCategoryStates] = useState<{ [key: string]: boolean }>({});
+    const [showSlide, setShowSlide] = useState(true); // State to control visibility of Slide
+
+    const standards = ['특', '대', '중', '소'];
+    const pageSize = 6;
   
     const visibleProducts = products.slice(
       (currentPage - 1) * pageSize,
@@ -66,7 +74,6 @@ import Image from 'next/image'
 
 
 
-
     useEffect(() => {
       fetch('/category')
         .then((response) => {
@@ -86,7 +93,8 @@ import Image from 'next/image'
 
 
     useEffect(() => {
-      fetch('/products') // 초기에 모든 상품을 불러옴
+      // Fetch initial products
+      fetch('/products')
         .then((response) => {
           if (!response.ok) {
             throw new Error('상품 데이터를 가져오는 데 문제가 발생했습니다.');
@@ -100,10 +108,12 @@ import Image from 'next/image'
           console.error('Error fetching products:', error);
         });
     }, []);
+  
 
 
 
     const fetchProductsByCategory = (cateName: string) => {
+      // Fetch products based on category
       fetch(`/products?cateName=${cateName}`)
         .then((response) => {
           if (!response.ok) {
@@ -113,12 +123,38 @@ import Image from 'next/image'
         })
         .then((data) => {
           setProducts(data);
+          setShowSlide(false)
         })
         .catch((error) => {
           console.error('Error fetching products by category:', error);
         });
     };
 
+
+    const fetchProductByCategoryAndStandard = (cateName: string, standard: string) => {    
+      fetch(`/products?cateName=${cateName}&standard=${standard}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('해당 카테고리별 규격정보를 가져오는데 문제가 발생했습니다.');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setProducts(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching', error);
+        });
+    };
+    
+
+
+    useEffect(() => {
+      if (selectedCategory && selectedStandard) {
+        fetchProductByCategoryAndStandard(selectedCategory, selectedStandard);
+      }
+    }, [selectedCategory, selectedStandard]);
+  
 
     const fetchProductDetails = (productKey: number) => {
       fetch(`/productDetails?productKey=${productKey}`)
@@ -142,19 +178,63 @@ import Image from 'next/image'
     };
 
 
+
+    const handleCategoryMouseOver = (cateName: string) => {
+      setCategoryStates((prevStates) => ({ ...prevStates, [cateName]: true }));
+      setSelectedCategory(cateName)
+      setSelectedStandard(null); // 추가된 부분
+    };
+    
+    const handleCategoryMouseOut = () => {
+      setCategoryStates({});
+    };
+
+
+    const handleStandardClick = (standard: string) => {
+      setSelectedStandard(standard);
+      setShowStandards(false);
+    };
+  
+
+
+    const renderStandards = (cateName: string) => {
+      const showStandards = categoryStates[cateName];
+    
+      if (showStandards) {
+        return (
+          <div className="flex flex-col absolute top-10 w-20 items-center bg-gray-300 pl-2 z-10">
+            {standards.map((standard) => (
+              <div
+                key={standard}
+                onClick={() => handleStandardClick(standard)}
+                style={{ cursor: 'pointer', marginRight: '10px' }}
+              >
+                {standard}
+              </div>
+            ))}
+          </div>
+        );
+      }
+      return null;
+    };
+
     return (
       <div>
         <ul className="flex justify-around bg-gray-300">
           {category.map((cateName, index) => (
             <li
-              className="flex justify-center w-20 h-10 items-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
+              className="relative flex justify-center w-20 h-10 items-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
               key={index}
               onClick={() => fetchProductsByCategory(cateName)}
-            >
+              onMouseOver={() => handleCategoryMouseOver(cateName)}
+              onMouseOut={handleCategoryMouseOut}
+              >
               {cateName}
+              {renderStandards(cateName)}
             </li>
           ))}
         </ul>
+        {showSlide && <Slide />}
         <div className='flex w-lvw justify-center'>
         <ul className='flex flex-wrap items-center justify-center w-1/2 h-lvh'>
           {visibleProducts.map((product, index) => (
@@ -167,9 +247,7 @@ import Image from 'next/image'
           ))}
         </ul>
         </div>
-        <div className="flex pagination justify-center">
-          {renderPagination()}
-      </div>
+        <div className="flex pagination justify-center">{renderPagination()}</div>
       </div>
     );
   }
