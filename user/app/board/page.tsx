@@ -43,7 +43,7 @@ export default function Board() {
 
       const response = await fetch(apiUrl);
       const data = await response.json();
-      
+
       setBoards(data.boards); // null 또는 undefined가 아닐 경우에만 설정
       setPageInfo({
         currentPage: data.pageInfo.currentPage,
@@ -54,7 +54,7 @@ export default function Board() {
       console.error("데이터를 불러오는 중 오류 발생:", error);
     }
   }, []);
-  
+
   const [inputPassword, setInputPassword] = useState("");
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -189,7 +189,7 @@ export default function Board() {
 
       <div className="flex justify-end mb-4">
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded"
+          className="bg-blue-500 text-white py-3 px-10 rounded"
           onClick={handleWriteButtonClick}
         >
           글쓰기
@@ -197,16 +197,16 @@ export default function Board() {
       </div>
 
       {showForm && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-md shadow-md w-full md:w-96">
-            {/* <div className="bg-white p-8 rounded-md"> */}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
+          <div className="bg-white p-8 rounded-md shadow-md w-full md:w-96 relative leading-6">
+            <h2 className="text-2xl font-bold mb-4">글쓰기</h2>
             <span
               onClick={handleModalClose}
-              className="cursor-pointer absolute top-4 right-4 text-2xl"
+              className="cursor-pointer absolute top-2 right-2 text-2xl"
+              style={{ zIndex: 1 }} // Updated zIndex value
             >
               &times;
             </span>
-            <h2 className="text-2xl font-bold mb-4">글쓰기</h2>
             <div className="mb-4">
               <label htmlFor="title" className="text-lg font-bold mb-2">
                 제목:
@@ -261,7 +261,7 @@ export default function Board() {
             <div>
               <button
                 onClick={handleSubmit}
-                className="bg-blue-500 text-white py-2 px-4 rounded"
+                className="bg-blue-500 text-white px-6 py-4 mt-4 mx-auto block border rounded"
               >
                 등록
               </button>
@@ -271,15 +271,17 @@ export default function Board() {
       )}
 
       <div className="mt-8">
-        <table className="w-full table-auto">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2 text-center">Title Key</th>
-              <th className="border px-4 py-2 text-center">Add Date</th>
-              <th className="border px-4 py-2 text-center">Username</th>
-              <th className="border px-4 py-2 text-center">Title</th>
-              <th className="border px-4 py-2 text-center">Reply</th>
-              <th className="border px-4 py-2 text-center">Actions</th>
+        <table className="w-full border-collapse border mt-10">
+          <thead className="border-b-2 border-solid border-gray-200">
+            <tr className="text-lg md:text-xl bg-gray-200">
+              <th className="p-2 text-2xl font-bold text-center w-1/12">
+                Title Key
+              </th>
+              <th className="p-2 text-2xl font-bold w-3/12">Add Date</th>
+              <th className="p-2 text-2xl font-bold w-1.2/12">Username</th>
+              <th className="p-2 text-2xl font-bold w-3/12">Title</th>
+              <th className="p-2 text-2xl font-bold w-3/12">Reply</th>
+              <th className="p-2 text-2xl font-bold w-3/12">Actions</th>
             </tr>
           </thead>
           <tbody>
