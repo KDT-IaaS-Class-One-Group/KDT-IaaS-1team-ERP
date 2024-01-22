@@ -74,14 +74,6 @@ export default function Board() {
     setSelectedBoard(board);
   };
 
-  // 글쓰기 모달이 나오는 이벤트 핸들러입니다.
-  const handleWriteButtonClick = () => {
-    if (!showForm) {
-      setShowForm(true);
-      setSelectedBoard(null); // 글쓰기 모달이 열릴 때 선택된 게시글 초기화
-    }
-  };
-
   // 모달을 닫는 이벤트 핸들러입니다.
   const handleModalClose = () => {
     setShowForm(false);
@@ -104,13 +96,23 @@ export default function Board() {
     return dateTimeString;
   };
 
-  // 페이징 변경을 처리하는 이벤트 핸들러입니다.
-  // const handlePageChange = (newPage: number) => {
-  //   setPageInfo({
-  //     ...pageInfo,
-  //     currentPage: newPage,
-  //   });
-  // };
+
+  const handleWriteButtonClick = () => {
+    if (!showForm) {
+      setShowForm(true);
+      setBoardInfo({
+        titleKey: "",
+        adddate: "",
+        username: "",
+        password: "",
+        title: "",
+        content: "",
+        reply: "",
+      });
+      setSelectedBoard(null); // 글쓰기 모달이 열릴 때 선택된 게시글 초기화
+    }
+  };
+  
 
   // 폼을 제출하는 이벤트 핸들러입니다.
   const handleSubmit = async () => {
@@ -150,7 +152,7 @@ export default function Board() {
   // 페이징 변경을 처리하는 이벤트 핸들러입니다.
   const handlePageChange = async (newPage: number) => {
     // 페이지 이동 중 로딩 상태를 보여줄 수 있는 UI 추가
-    // setBoards([]);
+    setBoards([]);
     setPageInfo({
       ...pageInfo,
       currentPage: newPage,
