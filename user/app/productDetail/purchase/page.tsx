@@ -181,10 +181,13 @@ export default function Purchase() {
       <form onSubmit={handleSubmit} className="w-full">
         <div className="flex justify-between">
           <div className="w-1/2 pr-4">
-            <div className="w-full border border-gray-300 px-3 py-2 text-base rounded-md">
+            <div className="w-full h-full bg-white px-3 py-4 text-lg rounded-md ">
               <ul>
                 {productsInfo.map((product, index) => (
-                  <div key={index} className="flex items-center">
+                  <div
+                    key={index}
+                    className="flex justify-around border mb-2 rounded-md"
+                  >
                     <div>
                       <img
                         src={`/${product.name}.png`}
@@ -192,16 +195,17 @@ export default function Purchase() {
                         height={100}
                       />
                     </div>
-                    <div className="ml-2">
-                      <p>상품명: {product.name}</p>
-                      <div className="flex">
-                        <p>수량: {product.quantity}</p>
-                        <div className="flex bg-gray-200 text-white px-10 rounded-md">
+                    <div className="flex-col w-44">
+                      <p className="font">상품명: {product.name}</p>
+                      <div className="flex ">
+                        <p className="mr-6">수량: {product.quantity}</p>
+                        <div className="flex items-end">
                           <button
                             onClick={(e) => {
                               e.preventDefault();
                               handleIncrement(index);
                             }}
+                            className="mr-2 bg-gray-300 rounded-md w-5"
                           >
                             +
                           </button>
@@ -211,7 +215,7 @@ export default function Purchase() {
                               handleDecrement(index);
                             }}
                             disabled={product.quantity <= 1}
-                            className="mr-2"
+                            className="mr-2 bg-gray-300 rounded-md w-5"
                           >
                             -
                           </button>
@@ -263,9 +267,12 @@ export default function Purchase() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="address" className="text-sm">
-                배송주소
-              </label>
+              <div className="flex justify-between">
+                <label htmlFor="address" className="text-sm">
+                  배송주소
+                </label>
+                <Addr onAddressSelect={handleAddressSelect} />
+              </div>
               <div className="flex items-center w-full">
                 <input
                   className="border border-gray-300 px-3 py-2 text-base rounded-md w-full"
@@ -277,7 +284,6 @@ export default function Purchase() {
                   readOnly
                 />
               </div>
-              <Addr onAddressSelect={handleAddressSelect} />
             </div>
             <div className="mb-4">
               <label htmlFor="addressDetail" className="text-sm">
