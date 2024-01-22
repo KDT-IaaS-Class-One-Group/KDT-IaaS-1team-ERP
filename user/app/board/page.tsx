@@ -13,7 +13,6 @@ interface BoardInfo {
   reply: string;
 }
 
-
 // Page 컴포넌트를 생성합니다.
 export default function Board() {
   // 데이터 및 UI 상태를 관리하는 상태 변수들입니다.
@@ -23,7 +22,7 @@ export default function Board() {
     pageSize: 10,
     totalPages: 1,
   });
-  
+
   const pageSize = 10;
   const [showForm, setShowForm] = useState(false);
   const [boardInfo, setBoardInfo] = useState<BoardInfo>({
@@ -45,7 +44,6 @@ export default function Board() {
       const response = await fetch(apiUrl);
       const data = await response.json();
 
-
       setBoards(data.boards); // null 또는 undefined가 아닐 경우에만 설정
       setPageInfo({
         currentPage: data.pageInfo.currentPage,
@@ -57,7 +55,7 @@ export default function Board() {
     }
   }, []);
 
-  // 모달 폼 내의 입력 값 변경을 처리하는 이벤트 핸들러입니다.
+  const [inputPassword, setInputPassword] = useState("");
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -68,16 +66,19 @@ export default function Board() {
     }));
   };
 
-  // 행을 클릭하여 세부 정보를 표시하는 이벤트 핸들러입니다.
-  const handleRowClick = (board: BoardInfo) => {
-    setShowForm(false);
-    setSelectedBoard(board);
-  };
-
-  // 모달을 닫는 이벤트 핸들러입니다.
   const handleModalClose = () => {
     setShowForm(false);
     setSelectedBoard(null);
+    setInputPassword(""); // 모달 닫을 때 비밀번호 초기화
+  };
+
+  const handlePasswordCheck = () => {
+    // 입력한 비밀번호와 글의 비밀번호 비교
+    if (inputPassword === selectedBoard?.password) {
+      alert("비밀번호 일치! 글을 표시합니다.");
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
   };
 
   // 현재 시간
@@ -96,7 +97,6 @@ export default function Board() {
     return dateTimeString;
   };
 
-
   const handleWriteButtonClick = () => {
     if (!showForm) {
       setShowForm(true);
@@ -110,9 +110,9 @@ export default function Board() {
         reply: "",
       });
       setSelectedBoard(null); // 글쓰기 모달이 열릴 때 선택된 게시글 초기화
+      setInputPassword("");
     }
   };
-  
 
   // 폼을 제출하는 이벤트 핸들러입니다.
   const handleSubmit = async () => {
@@ -140,15 +140,11 @@ export default function Board() {
     }
   };
 
-  
-
   // 컴포넌트 마운트 또는 페이지 변경 시 데이터를 가져오는 효과입니다.
   useEffect(() => {
     fetchData(pageInfo.currentPage);
   }, [fetchData, pageInfo.currentPage]);
 
-
-  
   // 페이징 변경을 처리하는 이벤트 핸들러입니다.
   const handlePageChange = async (newPage: number) => {
     // 페이지 이동 중 로딩 상태를 보여줄 수 있는 UI 추가
@@ -157,14 +153,14 @@ export default function Board() {
       ...pageInfo,
       currentPage: newPage,
     });
-  
+
     try {
       let apiUrl = `/api/qna?page=${newPage}&pageSize=${pageSize}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
-  
+
       console.log("Fetched data:", data);
-  
+
       setBoards(data.boards || []);
       setPageInfo({
         currentPage: data.pageInfo.currentPage,
@@ -176,19 +172,28 @@ export default function Board() {
     }
   };
 
+  const handleRowClick = async (board: BoardInfo) => {
+    const enteredPassword = prompt("비밀번호를 입력하세요:");
 
+    if (enteredPassword === board.password) {
+      setShowForm(false);
+      setSelectedBoard(board);
+    } else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold mb-6">Q&A 게시판</h1>
 
       <div className="flex justify-end mb-4">
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={handleWriteButtonClick}
-      >
-        글쓰기
-      </button>
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded"
+          onClick={handleWriteButtonClick}
+        >
+          글쓰기
+        </button>
       </div>
 
       {showForm && (
@@ -280,11 +285,15 @@ export default function Board() {
           <tbody>
             {boards.map((board) => (
               <tr key={board.titleKey}>
-                <td className="border px-4 py-2 text-center">{board.titleKey}</td>
+                <td className="border px-4 py-2 text-center">
+                  {board.titleKey}
+                </td>
                 <td className="border px-4 py-2 text-center">
                   {formatDateTime(board.adddate)}
                 </td>
-                <td className="border px-4 py-2 text-center">{board.username}</td>
+                <td className="border px-4 py-2 text-center">
+                  {board.username}
+                </td>
                 <td className="border px-4 py-2 text-center">{board.title}</td>
                 <td className="border px-4 py-2 text-center">{board.reply}</td>
                 <td className="border px-4 py-2 text-center">
@@ -301,11 +310,8 @@ export default function Board() {
         </table>
 
         {selectedBoard && (
-          <div
-            className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50"
-          >
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
             <div className="bg-white p-8 rounded-lg shadow-md md:w-96 w-3/5 relative leading-6">
-
               <span
                 onClick={handleModalClose}
                 className="absolute top-4 right-4 text-2xl cursor-pointer"
@@ -317,7 +323,6 @@ export default function Board() {
               </h2>
               <div>adddate : {formatDateTime(selectedBoard.adddate)}</div>
               <div>username : {selectedBoard.username}</div>
-              <div>password : {selectedBoard.password}</div>
               <div>title : {selectedBoard.title}</div>
               <div>content : {selectedBoard.content}</div>
               <div>reply : {selectedBoard.reply}</div>
