@@ -43,7 +43,7 @@ export default function Board() {
 
       const response = await fetch(apiUrl);
       const data = await response.json();
-
+      
       setBoards(data.boards); // null 또는 undefined가 아닐 경우에만 설정
       setPageInfo({
         currentPage: data.pageInfo.currentPage,
@@ -54,7 +54,7 @@ export default function Board() {
       console.error("데이터를 불러오는 중 오류 발생:", error);
     }
   }, []);
-
+  
   const [inputPassword, setInputPassword] = useState("");
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
