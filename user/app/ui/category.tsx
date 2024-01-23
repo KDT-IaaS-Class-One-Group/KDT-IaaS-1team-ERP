@@ -219,6 +219,7 @@ export default function Category() {
 
   const renderStandards = (cateName: string) => {
     const showStandards = categoryStates[cateName];
+    
 
     if (showStandards) {
       return (
@@ -239,20 +240,19 @@ export default function Category() {
     return null;
   };
 
-  
   return (
     <div>
       <ul className="flex justify-around bg-gray-300">
         {category.map((cateName, index) => (
           <li
-            className="relative flex justify-center w-50 h-50 items-center hover:bg-slate-200 cursor-pointer"
-            key={index}
-            onClick={() => {
-              fetchProductsByCategory(cateName);
-              handleCategoryMouseOver(cateName);
-            }}
-            onMouseOut={handleCategoryMouseOut}
+          className="relative flex justify-center w-50 h-50 items-center hover:bg-slate-200 cursor-pointer"
+          key={index}
+          onClick={() => fetchProductsByCategory(cateName)}
+          onMouseOver={() => handleCategoryMouseOver(cateName)}
+          onMouseOut={handleCategoryMouseOut}
           >
+          {/* {cateName} */}
+          {renderStandards(cateName)}
             <img
               className="w-50 h-50 object-cover"
               src={`/${imageInfo[index]}.png`}
@@ -260,7 +260,7 @@ export default function Category() {
               onClick={() => setShowSlide(true)}
             />
             {/* <span>{cateName}</span> */}
-            {renderStandards(cateName)}
+            {/* {renderStandards(cateName)} */}
           </li>
         ))}
       </ul>
@@ -269,7 +269,7 @@ export default function Category() {
         <ul className="flex flex-wrap items-center justify-center w-1/2 h-lvh">
           {visibleProducts.map((product, index) => (
             <li
-              className="flex flex-col w-40 h-80 border mr-10 cursor-pointer"
+              className="flex flex-col w-50 h-80 border mr-10 cursor-pointer"
               key={index}
               onClick={() => fetchProductDetails(product.productKey)}
             >
