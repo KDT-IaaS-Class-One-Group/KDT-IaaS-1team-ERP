@@ -32,6 +32,7 @@ interface Order {
   address: string;
   price: number;
   quantity: string;
+  adddate: string;
 }
 
 export function OrderList() {
@@ -96,6 +97,7 @@ export function OrderList() {
               <th className="px-6 py-3 border-b-2 border-gray-200">Address</th>
               <th className="px-6 py-3 border-b-2 border-gray-200">Price</th>
               <th className="px-6 py-3 border-b-2 border-gray-200">Quantity</th>
+              <th className="px-6 py-3 border-b-2 border-gray-200">AddDate</th>
               <th className="px-6 py-3 border-b-2 border-gray-200">Actions</th>
             </tr>
           </thead>
@@ -125,6 +127,9 @@ export function OrderList() {
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
                   {order.quantity}
+                </td>
+                <td className="px-6 py-4 border-b border-gray-200">
+                  {order.adddate}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
                   <button
