@@ -25,9 +25,9 @@ export default function RootLayout({
         <div className="flex w-11/12 h-20 items-center justify-around">
           <Reload />
           <div className="w-1/2">
-            <MyStatus />
           </div>
           <div className="flex space-x-4">
+            <div><MyStatus /></div>
             <div>
               <CartButton />
             </div>
