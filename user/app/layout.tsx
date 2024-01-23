@@ -20,10 +20,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  
   return (
     <html lang="en">
       <body>
-        <div className='flex w-lvw h-20 items-center pl-10'> 
+        <div className='flex w-lvw h-20 items-center pl-10 pace-x-4'> 
             <Reload />
           <div className='relative left-1/2'>
             <MyStatus />
