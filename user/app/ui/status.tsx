@@ -51,11 +51,21 @@ export default function MyStatus(){
 
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center mr-1">
+      <img
+      src="/사람.png"
+      alt="User Avatar"
+      className="w-6 h-6 object-cover rounded-full mr-2 overflow-hidden"
+    />
       <p className="mr-1" style={{ fontSize: '1.4rem' }}>{username}</p>
-      <p className="ml-1 mr-3" style={{ fontSize: '1.0rem' }}>님</p>
-      <p className="mr-2" style={{ fontSize: '1.4rem' }}>{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} </p>
-      <p style={{ fontSize: '1.0rem' }}>원</p>
+      {/* <p className="ml-1 mr-3" style={{ fontSize: '1.0rem' }}>님</p> */}
+      <img
+      src="/cash.png"
+      alt="User Avatar"
+      className="w-6 h-6 object-cover rounded-full mr-2 overflow-hidden"
+    />
+      <p className="mr-1" style={{ fontSize: '1.4rem' }}>{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} </p>
+      {/* <p style={{ fontSize: '1.0rem' }}>원</p> */}
     </div>
   );
 }
