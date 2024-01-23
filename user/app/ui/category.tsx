@@ -62,12 +62,12 @@ import Slide from './slide';
         if (endPage < totalPages) {
           pagination.push(
             <button key="next" onClick={() => setCurrentPage(endPage + 1)}>
-              {'>'}
+              {">"}
             </button>
           );
         }
       }
-    
+  
       return pagination;
     };
 
@@ -235,12 +235,14 @@ import Slide from './slide';
         <ul className="flex justify-around bg-gray-300">
           {category.map((cateName, index) => (
             <li
-              className="relative flex justify-center w-20 h-10 items-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
-              key={index}
-              onClick={() => fetchProductsByCategory(cateName)}
-              onMouseOver={() => handleCategoryMouseOver(cateName)}
-              onMouseOut={handleCategoryMouseOut}
-              >
+            className="relative flex justify-center w-50 h-50 items-center hover:bg-slate-200 cursor-pointer"
+            key={index}
+            onClick={() => {
+              fetchProductsByCategory(cateName);
+              handleCategoryMouseOver(cateName);
+            }}
+            onMouseOut={handleCategoryMouseOut}
+          >
               {cateName}
               {renderStandards(cateName)}
             </li>
@@ -252,7 +254,7 @@ import Slide from './slide';
           {visibleProducts.map((product, index) => (
             <li className='flex flex-col w-40 h-80 border mr-10 cursor-pointer' key={index} onClick={() => fetchProductDetails(product.productKey)}>
               <div className='h-60 border-b'>
-                <img className='w-full h-full object-cover' src={`/${product.productName}.png`} alt={`${index}`} />
+                <img className='w-full h-full object-cover' src={`/${product.productName}.png`} alt={`${index}`} />            
               </div>
               <p className='h-20 flex justify-center items-center'>{product.productName}</p>
             </li>
