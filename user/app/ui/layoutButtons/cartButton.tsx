@@ -19,7 +19,7 @@ export default function CartButton() {
   return (
     <div className='flex justify-center items-center w-20 h-9'>
       <button onClick={handleMyPageClick}
-       className="text-[#767676] hover:font-bold text-lg"
+       className="text-[#767676] hover:font-bold text-2lg"
        >장바구니</button>
     </div>
   );
