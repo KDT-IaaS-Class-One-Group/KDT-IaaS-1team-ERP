@@ -198,8 +198,9 @@ export default function Board() {
 
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
-          <div className="bg-white p-8 rounded-md shadow-md w-full md:w-96 relative leading-6">
-            <h2 className="text-2xl font-bold mb-4">글쓰기</h2>
+          <div className="bg-white p-6 rounded-md shadow-md w-9/10 md:w-2/3 lg:w-1/2 xl:w-1/3 relative leading-6">
+            <h2 className="text-3xl font-bold mb-4 text-center ">글쓰기</h2>
+            <br />
             <span
               onClick={handleModalClose}
               className="cursor-pointer absolute top-2 right-2 text-2xl"
@@ -208,8 +209,8 @@ export default function Board() {
               &times;
             </span>
             <div className="mb-4">
-              <label htmlFor="title" className="text-lg font-bold mb-2">
-                제목:
+              <label htmlFor="title" className="text-2xl font-bold mb-2">
+                제목
               </label>
               <input
                 type="text"
@@ -221,8 +222,8 @@ export default function Board() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="content" className="text-lg font-bold mb-2">
-                내용:
+              <label htmlFor="content" className="text-2xl font-bold mb-2">
+                내용
               </label>
               <textarea
                 id="content"
@@ -233,8 +234,8 @@ export default function Board() {
               ></textarea>
             </div>
             <div className="mb-4">
-              <label htmlFor="username" className="text-lg font-bold mb-2">
-                유저이름:
+              <label htmlFor="username" className="text-2xl font-bold mb-2">
+                유저이름
               </label>
               <input
                 type="text"
@@ -246,8 +247,8 @@ export default function Board() {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="password" className="text-lg font-bold mb-2">
-                패스워드:
+              <label htmlFor="password" className="text-2xl font-bold mb-2">
+                패스워드
               </label>
               <input
                 type="password"
@@ -287,7 +288,7 @@ export default function Board() {
           <tbody>
             {boards.map((board) => (
               <tr key={board.titleKey}>
-                <td className="border px-4 py-2 text-center">
+                <td className="p-2 text-center border px-4 py-2">
                   {board.titleKey}
                 </td>
                 <td className="border px-4 py-2 text-center">
