@@ -114,8 +114,14 @@ export default function Board() {
     }
   };
 
-  // 폼을 제출하는 이벤트 핸들러입니다.
+
   const handleSubmit = async () => {
+    // content(내용) 필드가 비어 있는지 확인
+    if (!boardInfo.content.trim()) {
+      alert("내용을 입력하세요."); // 원하는 방식으로 알림을 표시하거나 검증 오류를 처리하세요
+      return;
+    }
+  
     try {
       const response = await fetch("/api/qnawrite", {
         method: "POST",
@@ -124,7 +130,7 @@ export default function Board() {
         },
         body: JSON.stringify(boardInfo),
       });
-
+  
       if (response.ok) {
         fetchData(pageInfo.currentPage);
         alert("등록 완료");
@@ -132,13 +138,14 @@ export default function Board() {
         console.error(`게시글 추가 중 오류 발생: ${response.status}`);
         alert("등록 실패");
       }
-
+  
       // 모달 닫기
       setShowForm(false);
     } catch (error) {
       console.error("게시글 추가 중 오류 발생:", error);
     }
   };
+
 
   // 컴포넌트 마운트 또는 페이지 변경 시 데이터를 가져오는 효과입니다.
   useEffect(() => {
