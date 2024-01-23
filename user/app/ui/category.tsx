@@ -22,7 +22,7 @@ export default function Category() {
     [key: string]: boolean;
   }>({});
   const [showSlide, setShowSlide] = useState(true); // State to control visibility of Slide
-  const imageInfo = ["계란1", "메추리알1", "오리알1", "타조알1"];
+  const imageInfo = ["계란2", "메추리알1", "오리알1", "타조알1"];
 
   const standards = ["특", "대", "중", "소"];
   const pageSize = 8;
@@ -222,7 +222,7 @@ export default function Category() {
 
     if (showStandards) {
       return (
-        <div className="flex flex-col absolute top-10 w-20 items-center bg-gray-300 pl-2 z-10">
+        <div className="flex flex-col absolute top-10 w-20 items-center bg-gray-300 pl-2 z-10 ">
           {standards.map((standard) => (
             <div
               key={standard}
@@ -242,10 +242,10 @@ export default function Category() {
   
   return (
     <div>
-      <ul className="flex justify-around bg-gray-300">
+      <ul className="flex justify-around mr-2">
         {category.map((cateName, index) => (
           <li
-            className="relative flex justify-center w-50 h-50 items-center hover:bg-slate-200 cursor-pointer"
+            className="relative flex w-64 h-55 items-center  p-2 ml-2 mb-2  cursor-pointer"
             key={index}
             onClick={() => {
               fetchProductsByCategory(cateName);
@@ -254,12 +254,11 @@ export default function Category() {
             onMouseOut={handleCategoryMouseOut}
           >
             <img
-              className="w-50 h-50 object-cover"
+              className="w-full h-full object-cover"
               src={`/${imageInfo[index]}.png`}
-              // alt={`${cateName}`}
+              alt={`${cateName}`}
               onClick={() => setShowSlide(true)}
             />
-            {/* <span>{cateName}</span> */}
             {renderStandards(cateName)}
           </li>
         ))}
@@ -289,5 +288,4 @@ export default function Category() {
       </div>
       <div className="flex pagination justify-center">{renderPagination()}</div>
     </div>
-  );
-}
+  );}
