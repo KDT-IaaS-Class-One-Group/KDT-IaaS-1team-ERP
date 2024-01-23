@@ -20,6 +20,7 @@ import Slide from './slide';
     const [showStandards, setShowStandards] = useState(false);  
     const [categoryStates, setCategoryStates] = useState<{ [key: string]: boolean }>({});
     const [showSlide, setShowSlide] = useState(true); // State to control visibility of Slide
+    const imageInfo = ['계란1', '메추리알1', '오리알1', '타조알1'];
 
     const standards = ['특', '대', '중', '소'];
     const pageSize = 8;
@@ -229,7 +230,6 @@ import Slide from './slide';
       }
       return null;
     };
-
     return (
       <div>
         <ul className="flex justify-around bg-gray-300">
@@ -237,29 +237,35 @@ import Slide from './slide';
             <li
               className="relative flex justify-center w-20 h-10 items-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
               key={index}
-              onClick={() => fetchProductsByCategory(cateName)}
-              onMouseOver={() => handleCategoryMouseOver(cateName)}
+              onClick={() => {
+                fetchProductsByCategory(cateName);
+                handleCategoryMouseOver(cateName);
+              }}
               onMouseOut={handleCategoryMouseOut}
-              >
-              {cateName}
+            >
+              <img className='w-full h-full object-cover' src={`/public/${imageInfo[index]}.png`} alt={`${cateName}`} 
+
+  onClick={() => setShowSlide(true)}
+/>
+              <span>{cateName}</span>
               {renderStandards(cateName)}
             </li>
           ))}
         </ul>
         {showSlide && <Slide />}
         <div className='flex w-lvw justify-center'>
-        <ul className='flex flex-wrap items-center justify-center w-1/2 h-lvh'>
-          {visibleProducts.map((product, index) => (
-            <li className='flex flex-col w-40 h-80 border mr-10 cursor-pointer' key={index} onClick={() => fetchProductDetails(product.productKey)}>
-              <div className='h-60 border-b'>
-                <img className='w-full h-full object-cover' src={`/${product.productName}.png`} alt={`${index}`} />
-              </div>
-              <p className='h-20 flex justify-center items-center'>{product.productName}</p>
-            </li>
-          ))}
-        </ul>
+          <ul className='flex flex-wrap items-center justify-center w-1/2 h-lvh'>
+            {visibleProducts.map((product, index) => (
+              <li className='flex flex-col w-40 h-80 border mr-10 cursor-pointer' key={index} onClick={() => fetchProductDetails(product.productKey)}>
+                <div className='h-60 border-b'>
+                  <img className='w-full h-full object-cover' src={`/${product.productName}.png`} alt={`${index}`} />
+                </div>
+                <p className='h-20 flex justify-center items-center'>{product.productName}</p>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="flex pagination justify-center">{renderPagination()}</div>
       </div>
     );
-  }
+            }    
