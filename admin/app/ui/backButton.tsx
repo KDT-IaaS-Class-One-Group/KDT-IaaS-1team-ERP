@@ -8,6 +8,10 @@ export default function BackButton(){
     router.back();
   };
   return (
-    <button onClick={handleReturn}>뒤로가기</button>
+    <div className='flex justify-center items-center w-20 h-9'>
+    <button onClick={handleReturn}
+     className="text-[#767676] hover:font-bold text-2lg"
+     >뒤로가기</button>
+     </div>
   )
 }
