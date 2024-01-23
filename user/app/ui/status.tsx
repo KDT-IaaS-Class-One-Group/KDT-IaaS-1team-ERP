@@ -51,8 +51,10 @@ export default function MyStatus(){
 
   return (
     <div className="flex items-center">
-      <p className="mr-4 text-lg">{username} 님</p>
-      <p className="text-lg">{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} 원</p>
+      <p className="mr-1" style={{ fontSize: '1.4rem' }}>{username}</p>
+      <p className="ml-1 mr-3" style={{ fontSize: '1.0rem' }}>님</p>
+      <p className="mr-2" style={{ fontSize: '1.4rem' }}>{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} </p>
+      <p style={{ fontSize: '1.0rem' }}>원</p>
     </div>
   );
 }
