@@ -141,14 +141,14 @@ export default function CartPage() {
       <h1 className="text-5xl font-bold">장바구니</h1>
       <br />
       {/* 장바구니 아이템 목록 */}
-      <tr className="border-2 w-full flex justify-around px-0 py-4  bg-gray-300">
+      <div className="border-2 w-full flex justify-around px-0 py-4  bg-gray-300">
         <input type="checkbox" className="w-1/8" /> {/* 체크박스 너비 조정 */}
-        <th className="p-2 text-2xl font-bold text-center">이미지</th>
-        <th className="p-2 text-2xl font-bold text-center">상품정보</th>
-        <th className="p-2 text-2xl font-bold text-center">수량</th>
-        <th className="p-2 text-2xl font-bold text-center">합계</th>
-        <th className="p-2 text-2xl font-bold text-center">상품관리</th>
-      </tr>
+        <div className="p-2 text-2xl font-bold text-center">이미지</div>
+        <div className="p-2 text-2xl font-bold text-center">상품정보</div>
+        <div className="p-2 text-2xl font-bold text-center">수량</div>
+        <div className="p-2 text-2xl font-bold text-center">합계</div>
+        <div className="p-2 text-2xl font-bold text-center">상품관리</div>
+      </div>
       <ul className="w-full">
         {cartItems.map((item, index) => (
           <div className="w-full border" key={index}>
