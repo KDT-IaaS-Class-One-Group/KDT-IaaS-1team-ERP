@@ -21,13 +21,13 @@ export default function Slide() {
   return (
     <div className="w-lvw relative overflow-hidden">
       {/* 좌측 화살표 버튼 */}
-      <button className="bg-transparent absolute left-0 top-1/2 transform -translate-y-1/2 z-10 text-4xl bg-white p-2 h-52" onClick={handlePrevSlide}>
-        &lt;
+      <button className="bg-transparent absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 h-52" onClick={handlePrevSlide}>
+        <img src="/화살표.png" alt="이전 화살표" />
       </button>
   
       {/* 우측 화살표 버튼 */}
-      <button className="bg-transparent absolute right-0 top-1/2 transform -translate-y-1/2 z-10 text-4xl bg-white p-2 h-52" onClick={handleNextSlide}>
-        &gt;
+      <button className="bg-transparent absolute right-0 top-1/2 transform -translate-y-1/2 z-10  p-2 h-52" onClick={handleNextSlide}>
+        <img src="/화살표2.png" alt="다음 화살표" />
       </button>
   
       {/* 슬라이드 내용 */}
