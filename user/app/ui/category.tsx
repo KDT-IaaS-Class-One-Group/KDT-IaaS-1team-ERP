@@ -202,7 +202,7 @@ import Slide from './slide';
     
       if (showStandards) {
         return (
-          <div className="flex justify-around bg-gray-300 h-16 text-center items-center">
+          <div className="flex flex-col absolute top-10 w-20 items-center bg-gray-300 pl-2 z-10">
             {standards.map((standard) => (
               <div
                 key={standard}
@@ -220,10 +220,10 @@ import Slide from './slide';
 
     return (
       <div>
-        <ul className="flex justify-around bg-gray-300 h-14 text-center items-center">
+        <ul className="flex justify-around bg-gray-300">
           {category.map((cateName, index) => (
             <li
-              className="relative flex justify-center w-20 h-10 text-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
+              className="relative flex justify-center w-20 h-10 items-center bg-gray-300 hover:bg-slate-200 cursor-pointer"
               key={index}
               onClick={() => fetchProductsByCategory(cateName)}
               onMouseOver={() => handleCategoryMouseOver(cateName)}
