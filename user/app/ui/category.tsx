@@ -243,8 +243,10 @@ import Slide from './slide';
               }}
               onMouseOut={handleCategoryMouseOut}
             >
-              <img className='w-full h-full object-cover' src={`/public/${imageInfo[index]}.png`} alt={`${cateName}`} 
-
+          <img
+  className="w-16 h-16 object-cover"
+  src={`/public/${imageInfo[index]}.png`}
+  alt={`${cateName}`}
   onClick={() => setShowSlide(true)}
 />
               <span>{cateName}</span>
