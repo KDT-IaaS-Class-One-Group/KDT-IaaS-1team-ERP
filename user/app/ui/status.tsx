@@ -55,17 +55,17 @@ export default function MyStatus(){
       <img
       src="/사람.png"
       alt="User Avatar"
-      className="w-6 h-6 object-cover rounded-full mr-2 overflow-hidden"
+      className="w-4 h-4 object-cover mr-2 overflow-hidden"
     />
-      <p className="mr-1" style={{ fontSize: '1.4rem' }}>{username}</p>
-      {/* <p className="ml-1 mr-3" style={{ fontSize: '1.0rem' }}>님</p> */}
+      <p className="mr-1 text-2lg">{username}</p>
+      <p className="ml-1 mr-3 text-2lg">님</p>
       <img
       src="/cash.png"
       alt="User Avatar"
-      className="w-6 h-6 object-cover rounded-full mr-2 overflow-hidden"
+      className="w-4 h-4 object-cover rounded-full mr-2 overflow-hidden"
     />
-      <p className="mr-1" style={{ fontSize: '1.4rem' }}>{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} </p>
-      {/* <p style={{ fontSize: '1.0rem' }}>원</p> */}
+      <p className="mr-1 text-2lg" >{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} </p>
+      <p className='text-2lg'>원</p>
     </div>
   );
 }
