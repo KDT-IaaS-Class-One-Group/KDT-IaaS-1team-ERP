@@ -50,9 +50,9 @@ export default function MyStatus(){
   }
 
   return (
-    <div>
-      <p>사용자 : {username}</p>
-      <p>보유캐시 : {userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'}</p>
+    <div className="flex items-center">
+      <p className="mr-4 text-lg">{username} 님</p>
+      <p className="text-lg">{userInfo.length > 0 ? userInfo[0].cash : '로딩 중...'} 원</p>
     </div>
-  )
+  );
 }
