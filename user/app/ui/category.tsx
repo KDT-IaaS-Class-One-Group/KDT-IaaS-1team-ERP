@@ -239,13 +239,12 @@ export default function Category() {
     return null;
   };
 
-  
   return (
     <div>
       <ul className="flex justify-around mr-2">
         {category.map((cateName, index) => (
           <li
-            className="relative flex w-64 h-55 items-center  p-2 ml-2 mb-2  cursor-pointer"
+            className="relative flex-col w-64 h-55 items-center  p-2 ml-2 mb-2  cursor-pointer"
             key={index}
             onClick={() => {
               fetchProductsByCategory(cateName);
@@ -268,7 +267,7 @@ export default function Category() {
         <ul className="flex flex-wrap items-center justify-center w-1/2 h-lvh">
           {visibleProducts.map((product, index) => (
             <li
-              className="flex flex-col w-40 h-80 border mr-10 cursor-pointer"
+              className="flex flex-col w-64 h-70 border mr-10 cursor-pointer"
               key={index}
               onClick={() => fetchProductDetails(product.productKey)}
             >
@@ -288,4 +287,5 @@ export default function Category() {
       </div>
       <div className="flex pagination justify-center">{renderPagination()}</div>
     </div>
-  );}
+  );
+}
