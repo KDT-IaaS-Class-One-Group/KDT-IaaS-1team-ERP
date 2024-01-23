@@ -8,8 +8,9 @@ export default function ReloadButton() {
   }
 
   return (
-    <button className='text-4xl' type="button" onClick={handleClick}>
-      DyaBya
+    <button type="button" onClick={handleClick}>
+      <img src="/dyabya.png" alt="logo" />
+      {/* DyaBya */}
     </button>
   )
 }
