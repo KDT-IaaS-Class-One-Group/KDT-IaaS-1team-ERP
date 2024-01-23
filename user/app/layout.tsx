@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className='flex w-lvw h-20 items-center pl-10 pace-x-4'> 
+        <div className='flex w-lvw h-20 items-center pl-10 pace-x-4 left-1/4'> 
             <Reload />
           <div className='relative left-1/2'>
             <MyStatus />
