@@ -4,19 +4,8 @@
 import React, { useState } from 'react';
 
 export default function Slide() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 3;
-
-  const images = [
-    '/image1.jpg', // 이미지 파일명과 경로에 맞게 수정하세요
-    '/image2.jpg',
-    '/image3.jpg',
-  ];
-
-  const getRandomImage = () => {
-    const randomIndex = Math.floor(Math.random() * images.length);
-    return images[randomIndex];
-  };
+  const [currentSlide, setCurrentSlide] = useState(0); // 현재 슬라이드 인덱스 상태 변수
+  const totalSlides = 2; // 전체 슬라이드 개수
 
   const handlePrevSlide = () => {
     setCurrentSlide((prevIndex) => (prevIndex === 0 ? totalSlides - 1 : prevIndex - 1));
@@ -28,19 +17,28 @@ export default function Slide() {
 
   return (
     <div className="w-lvw relative overflow-hidden">
-      <button className="bg-transparent absolute left-0 top-1/2 transform -translate-y-1/2 z-10 text-4xl bg-white p-2 h-52 " onClick={handlePrevSlide}>
-        &lt;
+      {/* 좌측 화살표 버튼 */}
+      <button className="bg-transparent absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 h-52" onClick={handlePrevSlide}>
+        <img src="/화살표.png" alt="이전 화살표" />
       </button>
-      <button className="bg-transparent absolute right-0 top-1/2 transform -translate-y-1/2 z-10 text-4xl bg-white p-2 h-52 " onClick={handleNextSlide}>
-        &gt;
+  
+      {/* 우측 화살표 버튼 */}
+      <button className="bg-transparent absolute right-0 top-1/2 transform -translate-y-1/2 z-10  p-2 h-52" onClick={handleNextSlide}>
+        <img src="/화살표2.png" alt="다음 화살표" />
       </button>
+  
+      {/* 슬라이드 내용 */}
       <div className="flex text-center transition-transform duration-300 ease-in-out" style={{ width: `${totalSlides * 100}%`, transform: `translateX(-${currentSlide * (100 / totalSlides)}%)` }}>
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <div key={index} className="w-screen h-80" style={{ backgroundImage: `url(${getRandomImage()})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-            {`Slide ${index + 1}`}
-          </div>
-        ))}
+        {/* 첫 번째 슬라이드 */}
+        <div className="w-full">
+          <img src="/add.jpeg" alt="add-image" className="w-full h-auto" />
+        </div>
+  
+        {/* 두 번째 슬라이드 */}
+        <div className="w-full">
+          <img src="/add2.jpeg" alt="add2-image" className="w-full h-auto" />
+        </div>
       </div>
     </div>
   );
-}
+  }  

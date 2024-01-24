@@ -37,10 +37,13 @@ export default function Product({ selectedCategory }: ProductProps) {
   }, [selectedCategory]);
 
   return (
+    <div className='rounded-lg"'>
     <ul>
       {products.map((product, index) => (
-        <li key={index}>{product.productName}</li>
+        <li key={index} className='text-4xl'>{product.productName}</li>
       ))}
     </ul>
+
+    </div>
   );
 }

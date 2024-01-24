@@ -19,12 +19,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
-    <html lang="en" className="w-screen h-screen">
-      <body className="h-full overflow-x-hidden">
-        <div className="flex w-11/12 h-20 items-center justify-around">
-          <Reload />
-          <div className="w-1/2">
+    <html lang="en">
+      <body>
+        <div className='flex w-lvw h-20 items-center pl-10 pace-x-4 left-1/4'> 
+            <Reload />
+          <div className='relative left-1/2'>
+            <MyStatus />
           </div>
           <div className="flex space-x-4">
             <div><MyStatus /></div>

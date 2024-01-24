@@ -7,9 +7,10 @@ export default function ReloadButton() {
     window.location.href='/'
   }
 
+
   return (
-    <button className='text-2xl' type="button" onClick={handleClick}>
-      DyaBya
+    <button type="button" onClick={handleClick}>
+      <img style={{ width: "8vw" }} src="/logo.png" alt="logo" />
     </button>
-  )
+  );
 }
