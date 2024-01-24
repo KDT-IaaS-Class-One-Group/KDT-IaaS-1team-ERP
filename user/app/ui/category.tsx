@@ -178,7 +178,7 @@ export default function Category() {
       })
       .then((data) => {
         const { productName, price, productKey } = data;
-        if (productName && price && productKey) {
+        if (productName && price && productKey ) {
           router.push(
             `/productDetail/?productName=${productName}&price=${price}&productKey=${productKey}`
           );
