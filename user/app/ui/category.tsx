@@ -222,13 +222,14 @@ export default function Category() {
 
     if (showStandards) {
       return (
-        <div className="flex flex-col absolute top-10 w-20 items-center bg-gray-300 pl-2 z-10 ">
+        <div className="flex flex-col absolute top-40 left-3 w-60 items-center bg-white z-10 ">
+          <div className="bg-yellow-300 w-60 h-2"></div>
           {standards.map((standard) => (
             <div
               key={standard}
               onClick={() => handleStandardClick(standard)}
               style={{ cursor: "pointer", marginRight: "10px" }}
-              className="w-20 h-10 flex justify-center items-center hover:bg-gray-200"
+              className="w-60 h-12 ml-2.5 flex justify-center items-center hover:bg-gray-200 border-b"
             >
               {standard}
             </div>
@@ -250,6 +251,7 @@ export default function Category() {
               fetchProductsByCategory(cateName);
               handleCategoryMouseOver(cateName);
             }}
+            onMouseOver={() => handleCategoryMouseOver(cateName)}
             onMouseOut={handleCategoryMouseOut}
           >
             <img
