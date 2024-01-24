@@ -179,6 +179,7 @@ export default function Purchase() {
                     <div>
                       <img
                         src={`/${product.name}.png`}
+                        alt='상품 이미지'
                         width={100}
                         height={100}
                       />
