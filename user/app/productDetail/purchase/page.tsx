@@ -227,6 +227,11 @@ export default function Purchase() {
                 type="text"
                 name="customer"
                 id="customer"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
                 required
               />
             </div>
@@ -239,6 +244,11 @@ export default function Purchase() {
                 type="text"
                 name="receiver"
                 id="receiver"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
                 required
               />
             </div>
@@ -252,6 +262,11 @@ export default function Purchase() {
                 name="phoneNumber"
                 id="phone"
                 onChange={handlePhoneNumberChange}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
                 required
               />
             </div>
@@ -270,6 +285,11 @@ export default function Purchase() {
                   id="address"
                   value={selectedAddress.address}
                   required
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                    }
+                  }}
                   readOnly
                 />
               </div>
@@ -284,6 +304,11 @@ export default function Purchase() {
                 name="addressDetail"
                 id="addressDetail"
                 onChange={handleDetailedAddressChange}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
                 required
               />
             </div>

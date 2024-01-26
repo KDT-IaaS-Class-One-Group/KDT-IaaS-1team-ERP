@@ -249,8 +249,8 @@ app.prepare().then(() => {
   server.get('/mostSoldProduct', (req, res) => {
     const query = `
       SELECT
-        SUBSTRING_INDEX(SUBSTRING_INDEX(productKey, ',', n.digit + 1), ',', -1) AS splitProductKey,
-        SUBSTRING_INDEX(SUBSTRING_INDEX(quantity, ',', n.digit + 1), ',', -1) AS splitQuantity
+          SUBSTRING_INDEX(SUBSTRING_INDEX(productKey, ',', n.digit + 1), ',', -1) AS splitProductKey,
+          SUBSTRING_INDEX(SUBSTRING_INDEX(quantity, ',', n.digit + 1), ',', -1) AS splitQuantity
       FROM
         orders
         JOIN (
@@ -860,7 +860,7 @@ app.prepare().then(() => {
       const pageSize = parseInt(req.query.pageSize) || 20;
 
       // SQL 쿼리를 직접 실행
-      const query = "SELECT * FROM board LIMIT ?, ?";
+      const query = "SELECT titleKey, adddate, username, password, title, content, reply FROM board LIMIT ?, ?";
       const queryParams = [(page - 1) * pageSize, pageSize];
 
       const [boards] = await connection.promise().query(query, queryParams);
@@ -885,34 +885,40 @@ app.prepare().then(() => {
     }
   });
 
-  server.put("/api/updateReply/:username", async (req, res) => {
+  server.put("/api/updateReply/:titleKey", async (req, res) => {
     try {
       if (req.method === "PUT") {
-        const { username } = req.params;
+        const { titleKey } = req.params;
         const { reply } = req.body;
+  
+        console.log(`Received update request for titleKey: ${titleKey}`);
+        console.log('Updated reply:', reply);
+  
         // 데이터베이스에서 게시판 정보 수정
-        const [result] = await connection.promise().query(
-          "UPDATE board SET reply = ? WHERE username = ?",
-          [reply, username]
-        );
+        const [result] = await connection
+          .promise()
+          .query("UPDATE board SET reply = ? WHERE titleKey = ?", [reply, titleKey]);
+          console.log('Executing database query:', 'UPDATE board SET reply = ? WHERE titleKey = ?', [reply, titleKey]);
 
         if (result.affectedRows === 1) {
           // 성공적으로 수정된 경우
+          console.log("Reply update successful.");
           res.status(200).json({ message: "Q&A 답변 등록 성공" });
         } else {
-          // 삭제 실패 시
-          res.status(404).json({ error: "사용자를 찾을 수 없습니다." });
+          // 수정 실패 시
+          console.error("Reply update failed: Board not found.");
+          res.status(404).json({ error: "게시판을 찾을 수 없습니다." });
         }
       } else {
         // 허용되지 않은 메서드
+        console.error("Invalid method:", req.method);
         res.status(405).json({ error: "허용되지 않은 메서드" });
       }
     } catch (error) {
-      console.error(error);
+      console.error("Internal server error:", error);
       res.status(500).json({ error: "내부 서버 오류" });
     }
   });
-
 
   // Next.js 서버에 라우팅 위임
   server.all('*', (req,res) =>{

@@ -35,17 +35,17 @@ export default function Page() {
   const [selectedBoard, setSelectedBoard] = useState<BoardInfo | null>(null);
 
   const [editedReply, setEditedReply] = useState<{
-    [username: string]: string;
+    [titleKey: string]: string;
   }>({});
 
   // 서버에서 게시판 데이터를 가져오는 함수
   const fetchData = useCallback(async (page: number) => {
     try {
       let apiUrl = `/api/qna?page=${page}&pageSize=${pageSize}`;
-
+  
       const response = await fetch(apiUrl);
       const data = await response.json();
-
+  
       setBoards(data.boards);
       setPageInfo({
         currentPage: data.pageInfo.currentPage,
@@ -55,7 +55,7 @@ export default function Page() {
     } catch (error) {
       console.error("사용자 정보를 가져오는 중 오류 발생:", error);
     }
-  }, []);
+  }, [pageSize]);
 
   const handleRowClick = (board: BoardInfo) => {
     setSelectedBoard(board);
@@ -72,23 +72,34 @@ export default function Page() {
     });
   };
 
-  const handleReplyEdit = async (username: string) => {
+  const handleReplyEdit = async (board: BoardInfo, event: React.FormEvent) => {
     try {
-      await fetch(`/api/updateReply/${username}`, {
+      event.preventDefault();
+      console.log(`Editing reply for titleKey: ${board.titleKey}`);
+      console.log('Current state of editedReply:', editedReply);
+  
+      const response = await fetch(`/api/updateReply/${board.titleKey}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ reply: editedReply[username] }),
+        body: JSON.stringify({ reply: editedReply[board.titleKey] }),
       });
-
+  
+      if (response.ok) {
+        console.log("Update request successful.");
+      } else {
+        console.error("Update request failed with status:", response.status);
+      }
+  
       // 수정 후 데이터 다시 불러오기
       fetchData(pageInfo.currentPage);
-      setEditedReply((prev) => ({ ...prev, [username]: "" }));
+      setEditedReply((prev) => ({ ...prev, [board.titleKey]: prev[board.titleKey] || "" }));
     } catch (error) {
-      console.error("Error updating reply:", error);
+      console.error("Error during reply update:", error);
     }
   };
+
 
   const formatDateTime = (datetime: string) => {
     const dateTime = new Date(datetime);
@@ -112,23 +123,20 @@ export default function Page() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold mb-6">고객 문의</h1>
-      <table>
-        {showForm && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
-            {/* Modal Form */}
-            <div className="bg-white p-8 rounded-md shadow-md w-full md:w-96">
-              {/* Close button */}
-              <span
-                onClick={handleModalClose}
-                className="cursor-pointer absolute top-2 right-2 text-2xl"
-              >
-                &times;
-              </span>
-            </div>
+      {showForm && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
+          {/* Modal Form */}
+          <div className="bg-white p-8 rounded-md shadow-md w-full md:w-96">
+            {/* Close button */}
+            <span
+              onClick={handleModalClose}
+              className="cursor-pointer absolute top-2 right-2 text-2xl"
+            >
+              &times;
+            </span>
           </div>
-        )}
-      </table>
-
+        </div>
+      )}
       <div>
         {" "}
         {/* Increased margin-top for spacing */}
@@ -170,49 +178,45 @@ export default function Page() {
             ))}
           </tbody>
         </table>
-        <table>
-          {selectedBoard && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
-
-              <div className="bg-white p-8 rounded-lg shadow-md md:w-96 w-3/5 relative leading-6">
-
-                <span
-                  onClick={handleModalClose}
-                  className="cursor-pointer absolute top-2 right-2 text-2xl"
+        {selectedBoard && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
+            <div className="bg-white p-8 rounded-lg shadow-md md:w-96 w-3/5 relative leading-6">
+              <span
+                onClick={handleModalClose}
+                className="cursor-pointer absolute top-2 right-2 text-2xl"
+              >
+                &times;
+              </span>
+              <form action="">
+                <h2 className="text-2xl font-bold">
+                  titleKey : {selectedBoard.titleKey}
+                </h2>
+                <div>adddate : {formatDateTime(selectedBoard.adddate)}</div>
+                <div>username : {selectedBoard.username}</div>
+                <div>title : {selectedBoard.title}</div>
+                <div>content : {selectedBoard.content}</div>
+                <div>reply : {selectedBoard.reply}</div>
+                <input
+                  type="text"
+                  value={editedReply[selectedBoard.titleKey] || ""}
+                  onChange={(e) =>
+                    setEditedReply((prev) => ({
+                      ...prev,
+                      [selectedBoard.titleKey]: e.target.value,
+                    }))
+                  }
+                  className="border p-2 mt-2 w-full"
+                />
+                <button
+onClick={(event) => handleReplyEdit(selectedBoard, event)}
+className="bg-blue-500 text-white px-4 py-2 mt-4 mx-auto block border rounded"
                 >
-                  &times;
-                </span>
-                <form action="">
-                  <h2 className="text-2xl font-bold">
-                    titleKey : {selectedBoard.titleKey}
-                  </h2>
-                  <div>adddate : {formatDateTime(selectedBoard.adddate)}</div>
-                  <div>username : {selectedBoard.username}</div>
-                  <div>title : {selectedBoard.title}</div>
-                  <div>content : {selectedBoard.content}</div>
-                  <div>reply : {selectedBoard.reply}</div>
-                  <input
-                    type="text"
-                    value={editedReply[selectedBoard.username] || ""}
-                    onChange={(e) =>
-                      setEditedReply((prev) => ({
-                        ...prev,
-                        [selectedBoard.username]: e.target.value,
-                      }))
-                    }
-                    className="border p-2 mt-2 w-full"
-                  />
-                  <button
-                    onClick={() => handleReplyEdit(selectedBoard.username)}
-                    className="bg-blue-500 text-white px-4 py-2 mt-4 mx-auto block border rounded"
-                  >
-                    등록
-                  </button>
-                </form>
-              </div>
+                  등록
+                </button>
+              </form>
             </div>
-          )}
-        </table>
+          </div>
+        )}
         <div className="mt-4 flex items-center justify-center space-x-2">
           {Array.from(
             { length: pageInfo.totalPages },
