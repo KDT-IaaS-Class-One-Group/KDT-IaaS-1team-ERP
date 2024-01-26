@@ -78,7 +78,7 @@ export function OrderList() {
 
 
   return (
-    <div className="container mx-auto px-4 py-2">
+    <div className="w-screen h-screen container mx-auto px-4 py-2">
       <h1 className="text-2xl font-bold text-gray-800 my-4">Order List</h1>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white">
