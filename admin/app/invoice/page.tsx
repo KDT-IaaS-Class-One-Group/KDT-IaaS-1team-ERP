@@ -1,6 +1,5 @@
 "use client";
 
-// 'use client' 주석 추가
 import React, { useState, useEffect, useCallback } from "react";
 
 // 주문 정보를 나타내는 인터페이스 정의
@@ -42,7 +41,6 @@ export default function Invoice() {
       try {
         // API 엔드포인트 생성
         let apiUrl = `/order?page=${page}&pageSize=${pageSize}`;
-
         // 검색어가 있는 경우에는 API 엔드포인트에 추가
         if (searchTerm) {
           apiUrl += `&searchTerm=${searchTerm}`;
@@ -53,7 +51,7 @@ export default function Invoice() {
         const data = await response.json();
 
         setOrders(data.orders);
-        setPageInfo({
+        setPageInfo({ //정보를 받기 위한 초기값
           currentPage: data.pageInfo.currentPage,
           pageSize: data.pageInfo.pageSize,
           totalPages: data.pageInfo.totalPages,

@@ -34,7 +34,9 @@ interface CartItem {
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCartItems, setSelectedCartItems] = useState<number[]>([]);
+  const [canPurchase, setCanPurchase] = useState(true);
   const router = useRouter();
+
 
   useEffect(() => {
     const username = getUsernameSomehow();
@@ -185,7 +187,11 @@ export default function CartPage() {
       </div>
       {/* 상품 구매 버튼 */}
       <button
-        onClick={handlePurchase}
+        onClick={() => {
+          if (canPurchase) {
+            handlePurchase();
+          }
+        }}
         className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 self-end"
       >
         선택 상품 구매
