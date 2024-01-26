@@ -191,7 +191,7 @@ export default function Board() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="w-screen h-screen container mx-auto p-4">
       <h1 className="text-4xl font-bold mb-6">Q&A 게시판</h1>
 
       <div className="flex justify-end mb-4">
@@ -204,7 +204,7 @@ export default function Board() {
       </div>
 
       {showForm && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
+        <div className="top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
           <div className="bg-white p-6 rounded-md shadow-md w-9/10 md:w-2/3 lg:w-1/2 xl:w-1/3 relative leading-6">
             <h2 className="text-3xl font-bold mb-4 text-center ">글쓰기</h2>
             <br />
@@ -320,7 +320,7 @@ export default function Board() {
         </table>
 
         {selectedBoard && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
+          <div className="top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-30 backdrop-filter backdrop-blur-sm bg-gray-300 p-8 z-50">
             <div className="bg-white p-8 rounded-lg shadow-md md:w-96 w-3/5 relative leading-6">
               <span
                 onClick={handleModalClose}
@@ -339,7 +339,7 @@ export default function Board() {
             </div>
           </div>
         )}
-        <div className="fixed bottom-0 left-0 right-0 bg-white p-4 flex items-center justify-center space-x-2">
+        <div className="bottom-0 left-0 right-0 bg-white p-4 flex items-center justify-center space-x-2">
           {Array.from(
             { length: pageInfo.totalPages },
             (_, index) => index + 1
