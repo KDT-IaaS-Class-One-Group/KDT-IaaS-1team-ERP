@@ -25,13 +25,15 @@ export default function Apply() {
 
   // 폼 제출 핸들러
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    // 이벤트 객체의 기본 동작 방지(form submit 기본 동작 방지)
+    event.preventDefault(); 
 
-    // FormData 생성
+    // FormData 생성 :  FormData 객체를 생성
     const formData = new FormData();
 
     // 이미지가 존재하면 FormData에 추가
     if (image) {
+      // 입력된 데이터도 FormData에 추가
       formData.append('image', image);
     }
 
@@ -49,15 +51,17 @@ export default function Apply() {
         body: formData,
       });
 
-      // 응답이 성공적이지 않으면 에러 처리
-      if (!response.ok) {
-        const errorMessage = response.status === 400 ? '해당 상품명이 이미 존재합니다.' : '상품을 등록하는데 실패했습니다.';
-        throw new Error(errorMessage);
+      // 응답 성공이 아니면
+      if (!response.ok) { 
+        // 클라이언트 요청 상태가 HTTP 400 : 보통 사용자 입력이 잘못된 경우
+        const errorMessage = response.status === 400 ? '해당 상품명이 이미 존재합니다.' : '상품을 등록하는데 실패했습니다.'; 
+        throw new Error(errorMessage); // 예외 처리
       }
 
-      // 응답 데이터 출력 및 알림
-      const data = await response.json();
-      console.log(data.message);
+      // 응답 데이터 출력 및 알림     
+      // response 객체의 json 메서드는 Promise가 완료될 때까지 기다린후 반환
+      const data = await response.json(); 
+      console.log(data.message);          
       alert('상품 등록 완료');
     } catch (error) {
       console.error('Error adding product:', error);
@@ -65,8 +69,10 @@ export default function Apply() {
     }
 
     // 이미지 업로드 후 입력값 초기화
-    if (fileInputRef.current) {
-      (fileInputRef.current as HTMLInputElement).value = '';
+    if (fileInputRef.current) { // fileInputRef.current가 존재하는지
+      // fileInputRef는 React의 useRef 훅을 사용하여 생성된 참조(reference)입니다.
+      // useRef로 생성한 객체의 current 속성을 변경하더라도 컴포넌트는 리렌더링되지 않음
+      (fileInputRef.current as HTMLInputElement).value = ''; // HTMLInputElement로 형변환
     }
 
     setSelectedCategory('');
@@ -78,7 +84,7 @@ export default function Apply() {
   };
 
   // 페이지 로드 시 카테고리 목록 불러오기
-  useEffect(() => {
+  useEffect(() => { // useEffect는 데이터 가져오기에 사용되는 훅
     const fetchCategories = async () => {
       try {
         const response = await fetch('/category');
@@ -93,11 +99,14 @@ export default function Apply() {
     };
 
     fetchCategories();
-  }, []);
+  }, []); 
+  // useEffect 두번째 인자 : 빈 배열([]) = 효과가 한 번만 실행되도록 설정
 
   // 이미지 변경 핸들러
   const handleImageChange = (event: any) => {
-    const selectedImage = event.target.files[0];
+    // event.target.files[0]는 사용자가 선택한 첫 번째 파일
+    const selectedImage = event.target.files[0]; 
+    // 컴포넌트의 state를 관리하는 setImage 함수를 사용하여 selectedImage를 컴포넌트의 state 변수에 설정
     setImage(selectedImage);
   };
 
