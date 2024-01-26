@@ -137,7 +137,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="w-70vw mx-auto h-full flex flex-col items-start ml-36 mr-36">
+    <div className="w-70vw h-screen mx-auto  flex flex-col items-start ml-36 mr-36">
       {/* 장바구니 카테고리 */}
       <div className="flex justify-center w-full p-4"></div>
       <h1 className="text-5xl font-bold">장바구니</h1>
