@@ -263,7 +263,7 @@ export default function Category() {
       </ul>
       {showSlide && <Slide />}
       <div className="flex w-lvw justify-center">
-        <ul className="flex flex-wrap items-center justify-center w-1/2 h-lvh">
+        <ul className="flex flex-wrap items-center justify-center w-screen h-lvh">
           {visibleProducts.map((product, index) => (
             <li
               className="flex flex-col w-64 h-70 border mr-10 cursor-pointer"
