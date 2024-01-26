@@ -1,6 +1,6 @@
-'use client'
 
-// 'use client' 주석 추가
+'use client' 
+
 import { useState, useEffect, useRef } from 'react';
 
 // 카테고리 타입 정의
