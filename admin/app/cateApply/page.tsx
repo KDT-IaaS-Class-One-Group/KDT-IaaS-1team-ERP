@@ -1,17 +1,19 @@
 'use client'
 
-// 'use client' 주석 추가
 import { useState, useRef } from 'react';
+// 함수 컴포넌트에서 상태(state)를 관리
+// 함수 컴포넌트에서 DOM 요소에 접근하거나, 컴포넌트 간에 값을 공유
 
+// 카테고리 추가 컴포넌트
 export default function CateApply() {
   // 상태 변수 초기화
-  const [category, setCategory] = useState('');
-  const [image, setImage] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [category, setCategory] = useState(''); // 카테고리명 상태 변수
+  const [image, setImage] = useState<File | null>(null); // 이미지 파일 상태 변수
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // 파일 입력 필드의 ref
 
   // 폼 제출 핸들러
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
+    event.preventDefault(); // 기본 폼 제출 동작 방지
 
     // FormData 생성
     const formData = new FormData();
@@ -26,7 +28,7 @@ export default function CateApply() {
 
     try {
       // 카테고리 추가 API 호출
-      const response = await fetch('addCategory', {
+      const response = await fetch('/addCategory', {
         method: 'POST',
         body: formData,
       });
@@ -48,8 +50,8 @@ export default function CateApply() {
 
   // 이미지 변경 핸들러
   const handleImageChange = (event: any) => {
-    const selectedImage = event.target.files[0];
-    setImage(selectedImage);
+    const selectedImage = event.target.files[0]; // 선택된 이미지 파일
+    setImage(selectedImage); // 이미지 상태 변수 업데이트
   };
 
   // JSX 반환
