@@ -25,7 +25,7 @@ export default function Category() {
   const imageInfo = ["계란2", "메추리알1", "오리알1", "타조알1"];
 
   const standards = ["특", "대", "중", "소"];
-  const pageSize = 8;
+  const pageSize = 4;
 
   const visibleProducts = products.slice(
     (currentPage - 1) * pageSize,
@@ -42,7 +42,7 @@ export default function Category() {
       for (let i = start; i <= end; i++) {
         pagination.push(
           <button
-            className="border w-10 h-9 mr-2"
+            className="border w-10 h-9 mr-2 mb-2"
             key={i}
             onClick={() => setCurrentPage(i)}
           >
