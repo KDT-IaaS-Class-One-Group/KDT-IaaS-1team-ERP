@@ -35,7 +35,7 @@ export default function Page() {
   const [selectedBoard, setSelectedBoard] = useState<BoardInfo | null>(null);
 
   const [editedReply, setEditedReply] = useState<{
-    [username: string]: string;
+    [titlekey: string]: string;
   }>({});
 
   // 서버에서 게시판 데이터를 가져오는 함수
@@ -72,19 +72,19 @@ export default function Page() {
     });
   };
 
-  const handleReplyEdit = async (username: string) => {
+  const handleReplyEdit = async (titlekey: string) => {
     try {
-      await fetch(`/api/updateReply/${username}`, {
+      await fetch(`/api/updateReply/${titlekey}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ reply: editedReply[username] }),
+        body: JSON.stringify({ reply: editedReply[titlekey] }),
       });
 
       // 수정 후 데이터 다시 불러오기
       fetchData(pageInfo.currentPage);
-      setEditedReply((prev) => ({ ...prev, [username]: "" }));
+      setEditedReply((prev) => ({ ...prev, [titlekey]: "" }));
     } catch (error) {
       console.error("Error updating reply:", error);
     }
