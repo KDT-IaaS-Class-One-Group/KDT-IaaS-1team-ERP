@@ -11,8 +11,6 @@ export default function ApplyButton() {
 
     if (token) {
       router.push("/apply");
-    } else {
-      alert("로그인이 필요합니다.");
     }
   };
 

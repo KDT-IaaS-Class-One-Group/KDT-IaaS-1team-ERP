@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
   user: "root",
   password: "0177",
   database: "kimdb",
-  port: 3306,
+  port: 3307,
 });
 
 // multer 설정

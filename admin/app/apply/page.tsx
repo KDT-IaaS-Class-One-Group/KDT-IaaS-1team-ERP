@@ -2,6 +2,7 @@
 
 // 'use client' 주석 추가
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from "next/navigation";
 
 // 카테고리 타입 정의
 type Category = {
@@ -19,6 +20,15 @@ export default function Apply() {
   const [isInitialCategory, setIsInitialCategory] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const router = useRouter();
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      router.push("/login");
+    }
 
   // 규격 옵션 리스트
   const standardList = ["특", "대", "중", "소"];

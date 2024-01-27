@@ -15,7 +15,7 @@ const handle = app.getRequestHandler();
     user: "root",
     password: "0177",
     database: "kimdb",
-    port: 3306,
+    port: 3307,
   });
 
 
