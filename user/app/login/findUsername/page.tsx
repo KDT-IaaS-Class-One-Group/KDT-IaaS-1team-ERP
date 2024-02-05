@@ -7,7 +7,8 @@ import Modal from 'react-modal';
 const FindUsernamePage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');  const [error, setError] = useState<string>('');
+  const [username, setUsername] = useState('');  
+  const [error, setError] = useState<string>('');
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const openModal = () => setModalIsOpen(true);

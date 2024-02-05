@@ -18,13 +18,13 @@ const Footer = () => {
       <div className="flex flex-col">
 
         <div className="flex mb-2 ">
-          <p className=" text-xl mr-4">사업자 등록 번호: {companyInfo.businessNumber}</p>
-          <p className="text-xl mr-4">전화번호: {companyInfo.phoneNumber}</p>
+          <p className=" text-xs mr-4">사업자 등록 번호: {companyInfo.businessNumber}</p>
+          <p className="text-xs mr-4">전화번호: {companyInfo.phoneNumber}</p>
         </div>
 
         <div className="flex mb-2">
-          <p className="text-xl mr-10">이메일: {companyInfo.email}</p>
-        <p className="text-xl mr-10">주소: {companyInfo.address}</p>
+          <p className="text-xs mr-10">이메일: {companyInfo.email}</p>
+        <p className="text-xs mr-10">주소: {companyInfo.address}</p>
         </div>
         
       </div> 
