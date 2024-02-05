@@ -22,7 +22,7 @@ export default function Category() {
     [key: string]: boolean;
   }>({});
   const [showSlide, setShowSlide] = useState(true); // State to control visibility of Slide
-  const imageInfo = ["계란2", "메추리알1", "오리알1", "타조알1"];
+  const imageInfo = ["오리알1", "계란2", "메추리알1", "타조알1"];
 
   const standards = ["특", "대", "중", "소"];
   const pageSize = 8;
@@ -156,6 +156,8 @@ export default function Category() {
       })
       .then((data) => {
         setProducts(data);
+        setShowSlide(false);
+
       })
       .catch((error) => {
         console.error("Error fetching", error);
@@ -201,7 +203,9 @@ export default function Category() {
     setCategoryStates({});
   };
 
-  const handleStandardClick = (standard: string) => {
+  const handleStandardClick = (event, standard: string) => {
+    event.stopPropagation();
+
     setSelectedStandard((prevStandard) => {
       // 클릭한 standard가 현재 선택된 standard와 같으면 그대로 유지, 다르면 해당 standard로 설정
       return prevStandard === standard ? prevStandard : standard;
@@ -225,7 +229,7 @@ export default function Category() {
           {standards.map((standard) => (
             <div
               key={standard}
-              onClick={() => handleStandardClick(standard)}
+              onClick={(e) => handleStandardClick(e, standard)}
               style={{ cursor: "pointer", marginRight: "10px" }}
               className="w-60 h-12 ml-2.5 flex justify-center items-center hover:bg-gray-200 border-b"
             >
