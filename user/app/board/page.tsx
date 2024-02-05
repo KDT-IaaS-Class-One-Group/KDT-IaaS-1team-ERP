@@ -283,13 +283,12 @@ export default function Board() {
           <thead className="border-b-2 border-solid border-gray-200">
             <tr className="text-lg md:text-xl bg-gray-200">
               <th className="p-2 text-2xl font-bold text-center w-1/12">
-                Title Key
+                번호
               </th>
-              <th className="p-2 text-2xl font-bold w-3/12">Add Date</th>
-              <th className="p-2 text-2xl font-bold w-1.2/12">Username</th>
-              <th className="p-2 text-2xl font-bold w-3/12">Title</th>
-              <th className="p-2 text-2xl font-bold w-3/12">Reply</th>
-              <th className="p-2 text-2xl font-bold w-3/12">Actions</th>
+              <th className="p-2 text-2xl font-bold w-3/12">날짜</th>
+              <th className="p-2 text-2xl font-bold w-1.2/12">유저명</th>
+              <th className="p-2 text-2xl font-bold w-3/12">제목</th>
+              <th className="p-2 text-2xl font-bold w-3/12">답변</th>
             </tr>
           </thead>
           <tbody>
@@ -305,7 +304,6 @@ export default function Board() {
                   {board.username}
                 </td>
                 <td className="border px-4 py-2 text-center">{board.title}</td>
-                <td className="border px-4 py-2 text-center">{board.reply}</td>
                 <td className="border px-4 py-2 text-center">
                   <button
                     className="bg-blue-500 text-white py-1 px-2 rounded mr-2"

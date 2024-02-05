@@ -32,7 +32,7 @@ export default function RootLayout({
             <Reload />
         <div className='flex justify-around relative left-3/4'>
             <LoginButton />
-        <div>
+        <div className='ml-5'>
             <SignupButton />
         </div>
         </div>

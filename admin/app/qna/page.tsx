@@ -136,13 +136,12 @@ export default function Page() {
           <thead className="bg-gray-200">
             <tr className="text-lg md:text-xl">
               <th className="p-2 text-2xl font-bold text-center w-1/12">
-                titleKey
+                번호
               </th>
-              <th className="p-2 text-2xl font-bold text-center">adddate</th>
-              <th className="p-2 text-2xl font-bold text-center">username</th>
-              <th className="p-2 text-2xl font-bold text-center">title</th>
-              <th className="p-2 text-2xl font-bold text-center">reply</th>
-              <th className="p-2 text-2xl font-bold text-center">Actions</th>
+              <th className="p-2 text-2xl font-bold text-center">날짜</th>
+              <th className="p-2 text-2xl font-bold text-center">유저명</th>
+              <th className="p-2 text-2xl font-bold text-center">제목</th>
+              <th className="p-2 text-2xl font-bold text-center">답변</th>
             </tr>
           </thead>
           <tbody>
@@ -157,7 +156,6 @@ export default function Page() {
                 </td>
                 <td className="p-2 text-center">{board.username}</td>
                 <td className="p-2 text-center">{board.title}</td>
-                <td className="p-2 text-center">{board.reply}</td>
                 <td className="p-2 text-center">
                   <button
                     onClick={() => handleRowClick(board)}
