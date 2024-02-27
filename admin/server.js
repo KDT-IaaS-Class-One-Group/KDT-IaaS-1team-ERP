@@ -12,9 +12,9 @@ const fs = require('fs')
 
 // MariaDB 연결 설정
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "dyabya-db.cfceog0mau8e.ap-northeast-2.rds.amazonaws.com",
   user: "root",
-  password: "1234",
+  password: "dnwls12!",
   database: "kimdb",
   port: 3308,
 });
